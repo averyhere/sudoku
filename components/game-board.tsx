@@ -58,9 +58,15 @@ export function GameBoard() {
     const newPuzzle = [...board!.puzzle];
     newPuzzle[selectedCell] = value;
     const correctValue = [...board!.solution][selectedCell];
-    if (value !== correctValue && value !== [...board!.puzzle][selectedCell]) {
+
+    if (
+      difficulty !== "easy" &&
+      value !== correctValue &&
+      value !== [...board!.puzzle][selectedCell]
+    ) {
       incrementErrorCount();
     }
+
     setBoard({ ...board!, puzzle: newPuzzle.join("") });
     setSelectedCellCoords(null);
     setSelectedCell(null);
@@ -125,9 +131,11 @@ export function GameBoard() {
       <div className="w-full max-w-sm">
         {board && (
           <div className="flex flex-col gap-2 justify-center">
-            <div className="flex justify-between">
-              <p className="capitalize">Difficulty: {difficulty}</p>
-              <p>Errors: {errorCount}/5</p>
+            <div className="flex items-end justify-between">
+              <div>
+                <p className="capitalize">Difficulty: {difficulty}</p>
+                {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
+              </div>
               <GameTimer />
             </div>
             <div className="grid grid-cols-9 grid-rows-9 gap-0 border border-gray-300 dark:border-gray-700 aspect-square">
