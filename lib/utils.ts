@@ -12,6 +12,6 @@ export function parsePuzzleString(puzzle: string): string[][] {
   );
 }
 
-export function stringifyPuzzle(puzzle: Sudoku): string {
+export function stringifyPuzzle(puzzle: Sudoku & Array<[]>): string {
   return puzzle.flat().join("");
 }

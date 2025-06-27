@@ -1,9 +1,9 @@
-import { GameBoardV2 } from "@/components/game-board-v2";
+import { GameBoard } from "@/components/game-board";
 
 export default function Home() {
   return (
     <>
-      <GameBoardV2 />
+      <GameBoard />
     </>
   );
 }
