@@ -4,13 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/store/gameStore";
 import { Button } from "@/components/ui/button";
-import { GameTimer } from "@/components/timer";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { GameTimer } from "@/components/timer";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 
 export function GameBoardV2() {
   const {
@@ -21,6 +23,7 @@ export function GameBoardV2() {
     isPaused,
     resume,
     reset,
+    newGame,
     errorCount,
     incrementErrorCount,
   } = useGameStore();
@@ -63,7 +66,7 @@ export function GameBoardV2() {
     setSelectedCell(null);
 
     if (board!.puzzle === board!.solution) setGameStatus("won");
-    if (errorCount > 5) setGameStatus("lost");
+    if (errorCount >= 5) setGameStatus("lost");
   };
 
   useEffect(() => {
@@ -93,7 +96,26 @@ export function GameBoardV2() {
   if (!board) {
     return (
       <div className="w-full max-w-sm">
-        <p className="text-xl text-center">Start a new game to play!</p>
+        <h1 className="text-center mb-4">Select a difficulty to begin:</h1>
+        <ToggleGroup
+          type="single"
+          variant="outline"
+          className="flex w-full"
+          onValueChange={(value: Difficulty) => newGame(value as Difficulty)}
+        >
+          <ToggleGroupItem className="cursor-pointer" value="easy">
+            Easy
+          </ToggleGroupItem>
+          <ToggleGroupItem className="cursor-pointer" value="medium">
+            Medium
+          </ToggleGroupItem>
+          <ToggleGroupItem className="cursor-pointer" value="hard">
+            Hard
+          </ToggleGroupItem>
+          <ToggleGroupItem className="cursor-pointer" value="expert">
+            Expert
+          </ToggleGroupItem>
+        </ToggleGroup>
       </div>
     );
   }
