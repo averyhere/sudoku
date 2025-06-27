@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Providers } from "./providers";
+import { Header } from "@/components/header";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -27,7 +29,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-2 md:px-4">
+            <Header />
+            <div className="flex items-center md:items-start justify-center h-full">
+              {children}
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
