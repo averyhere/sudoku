@@ -1,4 +1,4 @@
-import { Scoreboard } from "./Scoreboard";
+import { ScoreboardButton } from "./Scoreboard";
 import type { Score as ScoreType } from "./columns";
 
-export { Scoreboard, ScoreType };
+export { ScoreboardButton, ScoreType };

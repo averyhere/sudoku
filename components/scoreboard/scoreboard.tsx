@@ -15,7 +15,7 @@ import {
 import { columns } from "./columns";
 import { DataTable } from "./table";
 
-export function Scoreboard() {
+export function ScoreboardButton() {
   const scoreboard = useGameStore((s) => s.scoreboard);
   const clearScores = useGameStore((s) => s.clearScores);
 

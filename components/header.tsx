@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { AveryOndoLogo } from "@/components/logos";
-import { Scoreboard } from "@/components/Scoreboard";
+import { ScoreboardButton } from "@/components/Scoreboard";
 
 export function Header() {
   return (
@@ -33,7 +33,7 @@ export function Header() {
                   <Github className="size-4" />
                 </Link>
               </Button>
-              <Scoreboard />
+              <ScoreboardButton />
             </div>
           </div>
         </div>
