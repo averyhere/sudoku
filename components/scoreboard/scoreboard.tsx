@@ -1,6 +1,6 @@
 "use client";
 
-import { useGameStore } from "@/store/gameStore";
+import { useGameStore } from "@/hooks/useGameStore";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

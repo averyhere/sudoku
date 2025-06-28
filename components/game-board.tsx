@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { useGameStore } from "@/store/gameStore";
+import { cn, formatTime } from "@/lib/utils";
+import { useGameStore } from "@/hooks/useGameStore";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,8 +13,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/timer";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
+import { NewGameButton } from "./new-game-button";
+import { ResetGameButton } from "./reset-game-button";
 
 export function GameBoard() {
   const {
@@ -27,7 +27,6 @@ export function GameBoard() {
     timer,
     pause,
     reset,
-    newGame,
     errorCount,
     incrementErrorCount,
     addScore,
@@ -124,107 +123,88 @@ export function GameBoard() {
   }
 
   if (!board) {
-    return (
-      <div className="w-full max-w-sm">
-        <h1 className="text-center mb-4">Select a difficulty to begin:</h1>
-        <ToggleGroup
-          type="single"
-          variant="outline"
-          className="flex w-full"
-          onValueChange={(value: Difficulty) => newGame(value as Difficulty)}
-        >
-          <ToggleGroupItem className="cursor-pointer" value="easy">
-            Easy
-          </ToggleGroupItem>
-          <ToggleGroupItem className="cursor-pointer" value="medium">
-            Medium
-          </ToggleGroupItem>
-          <ToggleGroupItem className="cursor-pointer" value="hard">
-            Hard
-          </ToggleGroupItem>
-          <ToggleGroupItem className="cursor-pointer" value="expert">
-            Expert
-          </ToggleGroupItem>
-        </ToggleGroup>
-      </div>
-    );
+    return <NewGameButton />;
   }
 
   return (
     <>
       <div className="w-full max-w-sm">
         {board && (
-          <div className="flex flex-col gap-2 justify-center">
-            <div className="flex items-end justify-between">
-              <div>
-                <p className="capitalize">Difficulty: {difficulty}</p>
-                {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
+          <>
+            <div className="flex flex-col gap-2 justify-center">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="capitalize">Difficulty: {difficulty}</p>
+                  {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
+                </div>
+                <GameTimer />
               </div>
-              <GameTimer />
-            </div>
 
-            <div className="relative overflow-hidden grid grid-cols-9 grid-rows-9 gap-0 border border-secondary aspect-square">
-              {[...board.puzzle].map((value, index) => {
-                const cellCoords = {
-                  row: Math.floor(index / 9),
-                  col: index % 9,
-                };
-                const thickBorder = [
-                  cellCoords.col % 3 === 0 ? "border-l-2" : "border-l",
-                  cellCoords.col % 3 === 2 ? "border-r-2" : "border-r",
-                  cellCoords.row % 3 === 0 ? "border-t-2" : "border-t",
-                  cellCoords.row % 3 === 2 ? "border-b-2" : "border-b",
-                ].join(" ");
-                return (
-                  <button
-                    key={`${index}`}
-                    onClick={() => handleSelectCell(index)}
-                    disabled={[...originalBoard!.puzzle][index] !== "-"}
-                    className={cn([
-                      "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
-                      selectedCellCoords?.row === cellCoords.row
-                        ? "bg-primary/10 dark:bg-primary/30"
-                        : "",
-                      selectedCellCoords?.col === cellCoords.col
-                        ? "bg-primary/10 dark:bg-primary/30"
-                        : "",
-                      selectedCell === index
-                        ? "bg-[var(--blue)]/30 dark:bg-[var(--blue)]/50"
-                        : "",
-                      getCellTextColor(index),
-                      thickBorder,
-                    ])}
+              <div className="relative overflow-hidden grid grid-cols-9 grid-rows-9 gap-0 border border-secondary aspect-square">
+                {[...board.puzzle].map((value, index) => {
+                  const cellCoords = {
+                    row: Math.floor(index / 9),
+                    col: index % 9,
+                  };
+                  const thickBorder = [
+                    cellCoords.col % 3 === 0 ? "border-l-2" : "border-l",
+                    cellCoords.col % 3 === 2 ? "border-r-2" : "border-r",
+                    cellCoords.row % 3 === 0 ? "border-t-2" : "border-t",
+                    cellCoords.row % 3 === 2 ? "border-b-2" : "border-b",
+                  ].join(" ");
+                  return (
+                    <button
+                      key={`${index}`}
+                      onClick={() => handleSelectCell(index)}
+                      disabled={[...originalBoard!.puzzle][index] !== "-"}
+                      className={cn([
+                        "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
+                        selectedCellCoords?.row === cellCoords.row
+                          ? "bg-primary/10 dark:bg-primary/30"
+                          : "",
+                        selectedCellCoords?.col === cellCoords.col
+                          ? "bg-primary/10 dark:bg-primary/30"
+                          : "",
+                        selectedCell === index
+                          ? "bg-[var(--blue)]/30 dark:bg-[var(--blue)]/50"
+                          : "",
+                        getCellTextColor(index),
+                        thickBorder,
+                      ])}
+                    >
+                      {value !== "-" ? value : ""}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="grid grid-cols-10 gap-2">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                  <Button
+                    key={num}
+                    onClick={() => handleSetValue(num.toString())}
+                    className="w-full h-12 md:h-9 font-bold"
+                    disabled={
+                      board!.puzzle.match(new RegExp(`${num}`, "g"))?.length ===
+                      9
+                    }
                   >
-                    {value !== "-" ? value : ""}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="grid grid-cols-10 gap-2">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    {num}
+                  </Button>
+                ))}
                 <Button
-                  key={num}
-                  onClick={() => handleSetValue(num.toString())}
+                  onClick={() => handleSetValue("-")}
                   className="w-full h-12 md:h-9 font-bold"
-                  disabled={
-                    board!.puzzle.match(new RegExp(`${num}`, "g"))?.length === 9
-                  }
                 >
-                  {num}
+                  X
                 </Button>
-              ))}
-              <Button
-                onClick={() => handleSetValue("-")}
-                className="w-full h-12 md:h-9 font-bold"
-              >
-                X
-              </Button>
+              </div>
             </div>
-            <Button variant="ghost" onClick={reset}>
-              Reset
-            </Button>
-          </div>
+            <div className="flex w-full justify-end mt-4">
+              <ResetGameButton />
+              <NewGameButton />
+            </div>
+          </>
         )}
       </div>
 
@@ -252,7 +232,7 @@ export function GameBoard() {
             <li>
               Difficulty: <span className="capitalize">{difficulty}</span>
             </li>
-            <li>Time taken: {timer} seconds</li>
+            <li>Time taken: {formatTime(timer)} seconds</li>
             {difficulty === "easy" && <li>Mistakes made: {errorCount} / 5</li>}
           </ul>
           <DialogFooter>

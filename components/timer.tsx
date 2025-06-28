@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useGameStore } from "@/store/gameStore";
+import { useGameStore } from "@/hooks/useGameStore";
 
 export function GameTimer({
   className,
