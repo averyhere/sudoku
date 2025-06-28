@@ -38,6 +38,9 @@ export default function RootLayout({
             </div>
           </div>
           <Analytics />
+          <div className="flex items-center justify-center h-full">
+            &copy; {new Date().getFullYear()} Avery Ondo
+          </div>
         </Providers>
       </body>
     </html>

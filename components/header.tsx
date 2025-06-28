@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useGameStore } from "@/store/gameStore";
+import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +13,7 @@ import {
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
+import Link from "next/link";
 
 export function Header() {
   const { newGame } = useGameStore();
@@ -32,6 +34,11 @@ export function Header() {
               New Game
             </Button>
             <ThemeToggle />
+            <Button asChild size="icon" variant="ghost">
+              <Link href="https://github.com/averyhere/sudoku" target="_blank">
+                <Github className="size-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </header>
