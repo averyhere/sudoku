@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { AveryOndoLogo } from "@/components/logos";
-import { ScoreboardButton } from "@/components/Scoreboard";
+import { ScoreboardButton } from "@/components/Scoreboard/index";
 
 export function Header() {
   return (
