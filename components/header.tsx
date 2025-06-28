@@ -14,6 +14,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import Link from "next/link";
+import { AveryOndoLogo } from "@/components/logos";
 
 export function Header() {
   const { newGame } = useGameStore();
@@ -28,17 +29,33 @@ export function Header() {
     <>
       <header className="w-full md:max-w-sm mx-auto my-4">
         <div className="flex gap-2 justify-between items-center">
-          <h1 className="text-2xl font-bold">Sudoku</h1>
-          <div className="flex gap-2">
-            <Button onClick={() => setShowNewGameDialog(true)} size="sm">
-              New Game
-            </Button>
-            <ThemeToggle />
-            <Button asChild size="icon" variant="ghost">
-              <Link href="https://github.com/averyhere/sudoku" target="_blank">
-                <Github className="size-4" />
+          <div>
+            <h1 className="text-4xl font-bold">Sudoku</h1>
+            <div className="flex gap-1 items-start">
+              <small className="text-xs text-foreground/40 leading-1">by</small>
+              <Link href="https://averyondo.com" target="_blank">
+                <AveryOndoLogo
+                  variant="horizontal"
+                  className="h-4 w-auto mr-2"
+                />
               </Link>
-            </Button>
+            </div>
+          </div>
+          <div>
+            <div className="flex justify-end gap-2 mb-2">
+              <ThemeToggle />
+              <Button asChild size="icon" variant="ghost">
+                <Link
+                  href="https://github.com/averyhere/sudoku"
+                  target="_blank"
+                >
+                  <Github className="size-4" />
+                </Link>
+              </Button>
+              <Button onClick={() => setShowNewGameDialog(true)} size="sm">
+                New Game
+              </Button>
+            </div>
           </div>
         </div>
       </header>

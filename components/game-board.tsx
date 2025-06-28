@@ -45,9 +45,7 @@ export function GameBoard() {
     if (value === "" || ogValue !== "-") return "text-foreground";
 
     const correctValue = [...board!.solution][index];
-    return value === correctValue
-      ? "text-green-400 dark:text-green-600"
-      : "text-red-400 dark:text-red-600";
+    return value === correctValue ? "text-green-600" : "text-red-700";
   };
 
   const handleSelectCell = (index: number) => {
@@ -159,10 +157,7 @@ export function GameBoard() {
                     onClick={() => handleSelectCell(index)}
                     disabled={[...originalBoard!.puzzle][index] !== "-"}
                     className={cn([
-                      "flex items-center justify-center text-lg font-mono border-secondary/50 hover:bg-[var(--blue)]/30",
-                      [...originalBoard!.puzzle][index] === "-"
-                        ? "bg-background"
-                        : "bg-secondary/10 dark:bg-white/10",
+                      "flex items-center justify-center text-lg font-mono bg-background border-secondary/50 hover:bg-[var(--blue)]/30",
                       selectedCellCoords?.row === cellCoords.row
                         ? "bg-primary/10 dark:bg-primary/30"
                         : "",
