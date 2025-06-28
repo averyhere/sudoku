@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { getSudoku } from "sudoku-gen";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { Sudoku } from "sudoku-gen/dist/types/sudoku.type";
+import type { Score } from "@/components/scoreboard/columns";
 
 type GameState = {
   difficulty: Difficulty | undefined;
@@ -19,6 +20,21 @@ type GameState = {
   reset: () => void;
   errorCount: number;
   incrementErrorCount: () => void;
+  scoreboard: Score[];
+  addScore: ({
+    date,
+    time,
+    errorCount,
+    difficulty,
+    result,
+  }: {
+    date: Date;
+    time: number;
+    errorCount: number;
+    difficulty: Difficulty;
+    result: "won" | "lost";
+  }) => void;
+  clearScores: () => void;
 };
 
 export const useGameStore = create<GameState>()(
@@ -58,6 +74,27 @@ export const useGameStore = create<GameState>()(
       errorCount: 0,
       incrementErrorCount: () =>
         set((state) => ({ errorCount: state.errorCount + 1 })),
+      scoreboard: [],
+      addScore: ({
+        date,
+        time,
+        errorCount,
+        difficulty,
+        result,
+      }: {
+        date: Date;
+        time: number;
+        errorCount: number;
+        difficulty: Difficulty;
+        result: "won" | "lost";
+      }) =>
+        set((state) => ({
+          scoreboard: [
+            ...state.scoreboard,
+            { date, time, errorCount, difficulty, result },
+          ],
+        })),
+      clearScores: () => set({ scoreboard: [] }),
     }),
     {
       name: "sudoku-game", // key in localStorage
