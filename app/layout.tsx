@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -37,10 +38,8 @@ export default function RootLayout({
               {children}
             </div>
           </div>
+          <Footer />
           <Analytics />
-          <div className="flex items-center justify-center h-full">
-            &copy; {new Date().getFullYear()} Avery Ondo
-          </div>
         </Providers>
       </body>
     </html>
