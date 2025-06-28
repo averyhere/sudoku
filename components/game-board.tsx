@@ -71,7 +71,7 @@ export function GameBoard() {
     setSelectedCellCoords(null);
     setSelectedCell(null);
 
-    if (board!.puzzle === board!.solution) setGameStatus("won");
+    if (newPuzzle.join("") === board!.solution) setGameStatus("won");
     if (errorCount >= 5) setGameStatus("lost");
   };
 
