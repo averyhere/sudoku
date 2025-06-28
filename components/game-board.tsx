@@ -138,7 +138,7 @@ export function GameBoard() {
               </div>
               <GameTimer />
             </div>
-            <div className="grid grid-cols-9 grid-rows-9 gap-0 border border-gray-300 dark:border-gray-700 aspect-square">
+            <div className="grid grid-cols-9 grid-rows-9 gap-0 border border-secondary/50 aspect-square">
               {[...board.puzzle].map((value, index) => {
                 const cellCoords = {
                   row: Math.floor(index / 9),
@@ -156,10 +156,10 @@ export function GameBoard() {
                     onClick={() => handleSelectCell(index)}
                     disabled={[...originalBoard!.puzzle][index] !== "-"}
                     className={cn([
-                      "flex items-center justify-center text-lg font-mono border-gray-300 dark:border-gray-700 hover:bg-primary/30 dark:hover:bg-primary/50",
+                      "flex items-center justify-center text-lg font-mono border-secondary/50 hover:bg-[var(--blue)]/30",
                       [...originalBoard!.puzzle][index] === "-"
                         ? "bg-background"
-                        : "bg-gray-50 dark:bg-white/10",
+                        : "bg-secondary/10 dark:bg-white/10",
                       selectedCellCoords?.row === cellCoords.row
                         ? "bg-primary/10 dark:bg-primary/30"
                         : "",
@@ -167,7 +167,7 @@ export function GameBoard() {
                         ? "bg-primary/10 dark:bg-primary/30"
                         : "",
                       selectedCell === index
-                        ? "bg-primary/30 dark:bg-primary/50"
+                        ? "bg-[var(--blue)]/30 dark:bg-primary/50"
                         : "",
                       getCellTextColor(index),
                       thickBorder,
