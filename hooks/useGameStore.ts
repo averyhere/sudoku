@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import { getSudoku } from "sudoku-gen";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { Sudoku } from "sudoku-gen/dist/types/sudoku.type";
-import type { ScoreType } from "@/components/Scoreboard";
+import type { ScoreType } from "@/components/ScoreboardButton";
 
 type GameState = {
   difficulty: Difficulty | undefined;
