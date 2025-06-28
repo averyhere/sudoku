@@ -15,6 +15,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import Link from "next/link";
 import { AveryOndoLogo } from "@/components/logos";
+import { Scoreboard } from "./scoreboard";
 
 export function Header() {
   const { newGame } = useGameStore();
@@ -52,9 +53,7 @@ export function Header() {
                   <Github className="size-4" />
                 </Link>
               </Button>
-              <Button onClick={() => setShowNewGameDialog(true)} size="sm">
-                New Game
-              </Button>
+              <Scoreboard />
             </div>
           </div>
         </div>
