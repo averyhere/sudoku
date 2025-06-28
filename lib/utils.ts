@@ -15,3 +15,7 @@ export function parsePuzzleString(puzzle: string): string[][] {
 export function stringifyPuzzle(puzzle: Sudoku & Array<[]>): string {
   return puzzle.flat().join("");
 }
+
+export function formatTime(seconds: number): string {
+  return `${Math.floor(seconds / 60)}:${(seconds % 60).toString().padStart(2, "0")}`;
+}
