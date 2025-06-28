@@ -9,6 +9,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/timer";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -22,6 +24,7 @@ export function GameBoard() {
     setBoard,
     isPaused,
     resume,
+    timer,
     reset,
     newGame,
     errorCount,
@@ -205,16 +208,38 @@ export function GameBoard() {
         )}
       </div>
 
-      <Dialog defaultOpen={!!gameStatus} open={!!gameStatus}>
-        <DialogContent showCloseButton={false}>
+      <Dialog
+        defaultOpen={!!gameStatus}
+        open={!!gameStatus}
+        onOpenChange={() => {
+          setGameStatus(null);
+        }}
+      >
+        <DialogContent>
           <DialogHeader>
-            <DialogTitle className="text-center mb-4">
-              {gameStatus === "won" ? "You Won!" : "Try again next time!"}
+            <DialogTitle className="text-center">
+              {gameStatus === "won"
+                ? "You Won!"
+                : "Oops! You made too many mistakes"}
             </DialogTitle>
-            <Button variant="ghost" onClick={reset}>
-              Reset
-            </Button>
+            <DialogDescription className="text-center">
+              {gameStatus === "won"
+                ? "Congratulations! You solved the puzzle."
+                : "Better luck next time!"}
+            </DialogDescription>
           </DialogHeader>
+          <ul className="text-center text-sm text-foreground/80">
+            <li>
+              Difficulty: <span className="capitalize">{difficulty}</span>
+            </li>
+            <li>Time taken: {timer} seconds</li>
+            {difficulty === "easy" && <li>Mistakes made: {errorCount} / 5</li>}
+          </ul>
+          <DialogFooter>
+            <Button onClick={reset} className="w-max m-auto">
+              {gameStatus === "won" ? "Play again" : "Try again"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
