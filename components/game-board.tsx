@@ -25,10 +25,12 @@ export function GameBoard() {
     isPaused,
     resume,
     timer,
+    pause,
     reset,
     newGame,
     errorCount,
     incrementErrorCount,
+    addScore,
   } = useGameStore();
   const [selectedCellCoords, setSelectedCellCoords] = useState<{
     row: number;
@@ -72,8 +74,29 @@ export function GameBoard() {
     setSelectedCellCoords(null);
     setSelectedCell(null);
 
-    if (newPuzzle.join("") === board!.solution) setGameStatus("won");
-    if (errorCount >= 5) setGameStatus("lost");
+    if (newPuzzle.join("") === board!.solution) {
+      pause();
+      addScore({
+        time: timer,
+        errorCount: errorCount,
+        difficulty: difficulty!,
+        date: new Date(),
+        result: "won",
+      });
+      setGameStatus("won");
+    }
+
+    if (errorCount >= 5) {
+      pause();
+      addScore({
+        time: timer,
+        errorCount: errorCount,
+        difficulty: difficulty!,
+        date: new Date(),
+        result: "lost",
+      });
+      setGameStatus("lost");
+    }
   };
 
   useEffect(() => {
@@ -139,7 +162,8 @@ export function GameBoard() {
               </div>
               <GameTimer />
             </div>
-            <div className="grid grid-cols-9 grid-rows-9 gap-0 border border-secondary/50 aspect-square">
+
+            <div className="relative overflow-hidden grid grid-cols-9 grid-rows-9 gap-0 border border-secondary aspect-square">
               {[...board.puzzle].map((value, index) => {
                 const cellCoords = {
                   row: Math.floor(index / 9),
@@ -157,7 +181,7 @@ export function GameBoard() {
                     onClick={() => handleSelectCell(index)}
                     disabled={[...originalBoard!.puzzle][index] !== "-"}
                     className={cn([
-                      "flex items-center justify-center text-lg font-mono bg-background border-secondary/50 hover:bg-[var(--blue)]/30",
+                      "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
                       selectedCellCoords?.row === cellCoords.row
                         ? "bg-primary/10 dark:bg-primary/30"
                         : "",
@@ -165,7 +189,7 @@ export function GameBoard() {
                         ? "bg-primary/10 dark:bg-primary/30"
                         : "",
                       selectedCell === index
-                        ? "bg-[var(--blue)]/30 dark:bg-primary/50"
+                        ? "bg-[var(--blue)]/30 dark:bg-[var(--blue)]/50"
                         : "",
                       getCellTextColor(index),
                       thickBorder,
@@ -176,6 +200,7 @@ export function GameBoard() {
                 );
               })}
             </div>
+
             <div className="grid grid-cols-10 gap-2">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <Button
