@@ -11,16 +11,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import { useGameStore } from "@/hooks/useGameStore";
 
-export function ResetGameButton() {
-  const { reset } = useGameStore();
+export function ResetGameButton({ children, ...props }: ButtonProps) {
+  const { board, reset } = useGameStore();
+
+  if (!board) return <div></div>;
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost">Reset current game</Button>
+        <Button variant="ghost" {...props}>
+          {children}
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

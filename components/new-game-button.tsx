@@ -14,8 +14,9 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useGameStore } from "@/hooks/useGameStore";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
+import { ButtonProps } from "./ui/button";
 
-export function NewGameButton() {
+export function NewGameButton({ children, ...props }: ButtonProps) {
   const { newGame } = useGameStore();
   const [open, setOpen] = useState(false);
 
@@ -27,7 +28,9 @@ export function NewGameButton() {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogTrigger asChild>
-        <Button onClick={() => setOpen(true)}>Start a new game</Button>
+        <Button onClick={() => setOpen(true)} {...props}>
+          {children}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

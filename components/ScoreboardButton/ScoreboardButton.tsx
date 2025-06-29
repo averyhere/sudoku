@@ -1,7 +1,7 @@
 "use client";
 
 import { useGameStore } from "@/hooks/useGameStore";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -15,16 +15,16 @@ import {
 import { columns } from "./columns";
 import { DataTable } from "./table";
 
-export function ScoreboardButton() {
+export function ScoreboardButton({ children, ...props }: ButtonProps) {
   const scoreboard = useGameStore((s) => s.scoreboard);
   const clearScores = useGameStore((s) => s.clearScores);
-
-  if (scoreboard.length === 0) return null;
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default">Scoreboard</Button>
+        <Button variant="default" {...props}>
+          {children}
+        </Button>
       </DialogTrigger>
       <DialogContent className="md:max-w-full md:w-max">
         <DialogHeader>

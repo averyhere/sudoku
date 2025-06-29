@@ -13,8 +13,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/timer";
-import { NewGameButton } from "./new-game-button";
-import { ResetGameButton } from "./reset-game-button";
 
 export function GameBoard() {
   const {
@@ -64,6 +62,7 @@ export function GameBoard() {
     if (
       difficulty !== "easy" &&
       value !== correctValue &&
+      value !== "" &&
       value !== [...board!.puzzle][selectedCell]
     ) {
       incrementErrorCount();
@@ -120,10 +119,6 @@ export function GameBoard() {
         handleSetValue(key);
       }
     }
-  }
-
-  if (!board) {
-    return <NewGameButton />;
   }
 
   return (
@@ -199,10 +194,6 @@ export function GameBoard() {
                   X
                 </Button>
               </div>
-            </div>
-            <div className="flex w-full justify-end mt-4">
-              <ResetGameButton />
-              <NewGameButton />
             </div>
           </>
         )}

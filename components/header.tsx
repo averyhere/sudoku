@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { AveryOndoLogo } from "@/components/logos";
+import { NewGameButton } from "@/components/new-game-button";
+import { ResetGameButton } from "@/components/reset-game-button";
 import { ScoreboardButton } from "@/components/ScoreboardButton";
 
 export function Header() {
@@ -33,9 +35,20 @@ export function Header() {
                   <Github className="size-4" />
                 </Link>
               </Button>
-              <ScoreboardButton />
             </div>
           </div>
+        </div>
+
+        <div className="flex w-full justify-between mt-2">
+          <NewGameButton variant="outline" size="sm">
+            New Game
+          </NewGameButton>
+          <ResetGameButton variant="outline" size="sm">
+            Reset Game
+          </ResetGameButton>
+          <ScoreboardButton variant="outline" size="sm">
+            Scoreboard
+          </ScoreboardButton>
         </div>
       </header>
     </>
