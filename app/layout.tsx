@@ -51,12 +51,12 @@ export default function RootLayout({
         <Providers>
           <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-2 md:px-4">
             <Header />
-            <div className="flex items-end pb-8 md:items-start justify-center h-full">
+            <div className="flex items-center pb-8 md:items-start justify-center h-full">
               {children}
             </div>
             <AddToHomeScreen />
+            <Footer />
           </div>
-          <Footer />
           <Analytics />
         </Providers>
       </body>

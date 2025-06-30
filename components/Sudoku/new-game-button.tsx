@@ -10,11 +10,11 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useState } from "react";
 import { useGameStore } from "@/hooks/useGameStore";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
-import { ButtonProps } from "./ui/button";
+import { ButtonProps } from "../ui/button";
 
 export function NewGameButton({ children, ...props }: ButtonProps) {
   const { newGame } = useGameStore();

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/timer";
 
-export function GameBoard() {
+export function SudokuBoard() {
   const {
     difficulty,
     board,
@@ -41,10 +41,13 @@ export function GameBoard() {
   const getCellTextColor = (index: number): string => {
     const value = [...board!.puzzle][index];
     const ogValue = [...originalBoard!.puzzle][index];
-    if (value === "" || ogValue !== "-") return "text-foreground";
+    if (value === "" || ogValue !== "-")
+      return "text-foreground focus:outline-bright-purple";
 
     const correctValue = [...board!.solution][index];
-    return value === correctValue ? "text-green-600" : "text-red-700";
+    return value === correctValue
+      ? "text-foreground focus:outline-green-700"
+      : "text-red-600 focus:outline-red-600";
   };
 
   const handleSelectCell = (index: number) => {
@@ -135,34 +138,65 @@ export function GameBoard() {
                 <GameTimer />
               </div>
 
-              <div className="relative overflow-hidden grid grid-cols-9 grid-rows-9 gap-0 border border-secondary aspect-square">
+              <div className="relative overflow-hidden grid grid-cols-9 border-l-1 grid-rows-9 gap-0 border border-secondary aspect-square">
                 {[...board.puzzle].map((value, index) => {
                   const cellCoords = {
                     row: Math.floor(index / 9),
                     col: index % 9,
                   };
                   const thickBorder = [
-                    cellCoords.col % 3 === 0 ? "border-l-2" : "border-l",
-                    cellCoords.col % 3 === 2 ? "border-r-2" : "border-r",
-                    cellCoords.row % 3 === 0 ? "border-t-2" : "border-t",
-                    cellCoords.row % 3 === 2 ? "border-b-2" : "border-b",
+                    cellCoords.col % 3 === 0
+                      ? "border-l-1"
+                      : "border-l-[0.5px]",
+                    cellCoords.col % 3 === 2
+                      ? "border-r-1"
+                      : "border-r-[0.5px]",
+                    cellCoords.row % 3 === 0
+                      ? "border-t-1"
+                      : "border-t-[0.5px]",
+                    cellCoords.row % 3 === 2
+                      ? "border-b-1"
+                      : "border-b-[0.5px]",
                   ].join(" ");
+                  const altBg = [
+                    cellCoords.col < 3 && cellCoords.row < 3
+                      ? "bg-purple/10"
+                      : "",
+                    cellCoords.col > 5 && cellCoords.row < 3
+                      ? "bg-purple/10"
+                      : "",
+                    cellCoords.col > 2 &&
+                    cellCoords.col < 6 &&
+                    cellCoords.row > 2 &&
+                    cellCoords.row < 6
+                      ? "bg-purple/10"
+                      : "",
+                    cellCoords.col < 3 && cellCoords.row > 5
+                      ? "bg-purple/10"
+                      : "",
+                    cellCoords.col > 5 && cellCoords.row > 5
+                      ? "bg-purple/10"
+                      : "",
+                  ];
+
                   return (
                     <button
                       key={`${index}`}
                       onClick={() => handleSelectCell(index)}
-                      disabled={[...originalBoard!.puzzle][index] !== "-"}
+                      // disabled={[...originalBoard!.puzzle][index] !== "-"}
                       className={cn([
                         "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
+                        altBg,
                         selectedCellCoords?.row === cellCoords.row
-                          ? "bg-primary/10 dark:bg-primary/30"
+                          ? "bg-purple/30"
                           : "",
                         selectedCellCoords?.col === cellCoords.col
-                          ? "bg-primary/10 dark:bg-primary/30"
+                          ? "bg-purple/30"
                           : "",
-                        selectedCell === index
-                          ? "bg-[var(--blue)]/30 dark:bg-[var(--blue)]/50"
+                        value === board.puzzle[selectedCell!] && value !== "-"
+                          ? "bg-blue/30"
                           : "",
+                        selectedCell === index ? "bg-blue/30 font-bold" : "",
                         getCellTextColor(index),
                         thickBorder,
                       ])}
@@ -173,12 +207,12 @@ export function GameBoard() {
                 })}
               </div>
 
-              <div className="grid grid-cols-10 gap-2">
+              <div className="grid grid-cols-10 gap-2 mb-12 md:mb-0">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                   <Button
                     key={num}
                     onClick={() => handleSetValue(num.toString())}
-                    className="w-full h-12 md:h-9 font-bold"
+                    className="w-full h-16 md:h-9 font-bold"
                     disabled={
                       board!.puzzle.match(new RegExp(`${num}`, "g"))?.length ===
                       9
@@ -189,7 +223,7 @@ export function GameBoard() {
                 ))}
                 <Button
                   onClick={() => handleSetValue("-")}
-                  className="w-full h-12 md:h-9 font-bold"
+                  className="w-full h-16 md:h-9 font-bold"
                 >
                   X
                 </Button>
