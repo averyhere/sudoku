@@ -12,12 +12,12 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "../ui/button";
 import { useState } from "react";
-import { useGameStore } from "@/hooks/useGameStore";
+import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { ButtonProps } from "../ui/button";
 
 export function NewGameButton({ children, ...props }: ButtonProps) {
-  const { newGame } = useGameStore();
+  const { newGame } = useSudokuGameStore();
   const [open, setOpen] = useState(false);
 
   function handleSelection(value: Difficulty) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useGameStore } from "@/hooks/useGameStore";
+import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,8 +16,8 @@ import { columns } from "./columns";
 import { DataTable } from "./table";
 
 export function ScoreboardButton({ children, ...props }: ButtonProps) {
-  const scoreboard = useGameStore((s) => s.scoreboard);
-  const clearScores = useGameStore((s) => s.clearScores);
+  const scoreboard = useSudokuGameStore((s) => s.scoreboard);
+  const clearScores = useSudokuGameStore((s) => s.clearScores);
 
   return (
     <Dialog>

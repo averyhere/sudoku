@@ -3,9 +3,9 @@ import { persist } from "zustand/middleware";
 import { getSudoku } from "sudoku-gen";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { Sudoku } from "sudoku-gen/dist/types/sudoku.type";
-import type { ScoreType } from "@/components/ScoreboardButton";
+import type { ScoreType } from "@/components/Sudoku/scoreboard";
 
-type GameState = {
+type SudokuGameState = {
   difficulty: Difficulty | undefined;
   board: Sudoku | undefined; // Current puzzle state
   originalBoard: Sudoku | undefined; // Original puzzle (read-only reference)
@@ -37,7 +37,7 @@ type GameState = {
   clearScores: () => void;
 };
 
-export const useGameStore = create<GameState>()(
+export const useSudokuGameStore = create<SudokuGameState>()(
   persist(
     (set) => ({
       difficulty: undefined,

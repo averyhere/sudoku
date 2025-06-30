@@ -12,10 +12,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button, ButtonProps } from "@/components/ui/button";
-import { useGameStore } from "@/hooks/useGameStore";
+import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 
 export function ResetGameButton({ children, ...props }: ButtonProps) {
-  const { board, reset } = useGameStore();
+  const { board, reset } = useSudokuGameStore();
 
   if (!board) return <div></div>;
 

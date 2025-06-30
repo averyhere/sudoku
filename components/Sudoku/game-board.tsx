@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { cn, formatTime } from "@/lib/utils";
-import { useGameStore } from "@/hooks/useGameStore";
+import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { GameTimer } from "@/components/timer";
+import { GameTimer } from "@/components/Sudoku/timer";
 
 export function SudokuBoard() {
   const {
@@ -28,7 +28,7 @@ export function SudokuBoard() {
     errorCount,
     incrementErrorCount,
     addScore,
-  } = useGameStore();
+  } = useSudokuGameStore();
   const [selectedCellCoords, setSelectedCellCoords] = useState<{
     row: number;
     col: number;

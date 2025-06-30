@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { useGameStore } from "@/hooks/useGameStore";
+import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 
 export function GameTimer({
   className,
   ...props
 }: React.HTMLProps<HTMLDivElement> & { className?: string }) {
-  const timer = useGameStore((s) => s.timer);
-  const tick = useGameStore((s) => s.tick);
-  const isPaused = useGameStore((s) => s.isPaused);
+  const timer = useSudokuGameStore((s) => s.timer);
+  const tick = useSudokuGameStore((s) => s.tick);
+  const isPaused = useSudokuGameStore((s) => s.isPaused);
 
   useEffect(() => {
     const interval = setInterval(() => {
