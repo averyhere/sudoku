@@ -11,6 +11,11 @@ export default function Home() {
             <Link href="/sudoku">Sudoku</Link>
           </Button>
         </li>
+        <li>
+          <Button asChild>
+            <Link href="/tic-tac-toe">Tic-Tac-Toe</Link>
+          </Button>
+        </li>
       </ul>
     </main>
   );
