@@ -16,10 +16,10 @@ const MenuItems = [
     label: "Play Sudoku",
     href: "/sudoku",
   },
-  {
-    label: "Play Tic-Tac-Toe",
-    href: "/tic-tac-toe",
-  },
+  // {
+  //   label: "Play Tic-Tac-Toe",
+  //   href: "/tic-tac-toe",
+  // },
 ];
 
 const ExternalLinks = [

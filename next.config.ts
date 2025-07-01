@@ -43,6 +43,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
+        destination: "/sudoku",
+        permanent: false,
+      },
+      {
+        source: "/",
         has: [
           {
             type: "host",
