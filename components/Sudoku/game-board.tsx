@@ -61,11 +61,11 @@ export function SudokuBoard() {
     const newPuzzle = [...board!.puzzle];
     newPuzzle[selectedCell] = value;
     const correctValue = [...board!.solution][selectedCell];
-
+    console.log("setting value", value);
     if (
       difficulty !== "easy" &&
       value !== correctValue &&
-      value !== "" &&
+      value !== "-" &&
       value !== [...board!.puzzle][selectedCell]
     ) {
       incrementErrorCount();
