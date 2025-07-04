@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { cn, formatTime } from "@/lib/utils";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
+import { PiBackspaceDuotone } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -37,12 +38,41 @@ export function SudokuBoard() {
   const [gameStatus, setGameStatus] = useState<null | "won" | "lost">(null);
   const handleKeyPressRef = useRef(handleKeyPress);
   handleKeyPressRef.current = handleKeyPress;
+  const handleMouseClickRef = useRef(handleMouseClickPress);
+  handleMouseClickRef.current = handleMouseClickPress;
+
+  const printSolution = () => {
+    if (!process.env.NEXT_PUBLIC_GAME_DEBUG) return;
+    const solution = `
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(0, 9).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(9, 18).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(18, 27).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(27, 36).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(36, 45).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(45, 54).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(54, 63).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(63, 72).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+      | ${[...board!.solution].slice(72, 81).join(" | ")} |
+      |---|---|---|---|---|---|---|---|---|
+    `;
+    console.log("Solution:");
+    console.log(solution);
+  };
 
   const getCellTextColor = (index: number): string => {
     const value = [...board!.puzzle][index];
     const ogValue = [...originalBoard!.puzzle][index];
     if (value === "" || ogValue !== "-")
-      return "text-foreground focus:outline-bright-purple";
+      return "text-foreground/80 focus:outline-bright-purple";
 
     const correctValue = [...board!.solution][index];
     return value === correctValue
@@ -58,6 +88,7 @@ export function SudokuBoard() {
   const handleSetValue = (value: string) => {
     if (isPaused) resume();
     if (selectedCell === null) return;
+    if ([...originalBoard!.puzzle][selectedCell] !== "-") return;
     const newPuzzle = [...board!.puzzle];
     newPuzzle[selectedCell] = value;
     const correctValue = [...board!.solution][selectedCell];
@@ -101,13 +132,16 @@ export function SudokuBoard() {
   };
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => handleKeyPressRef.current(e);
+    const keyPressandler = (e: KeyboardEvent) => handleKeyPressRef.current(e);
+    const mouseClickHandler = (e: MouseEvent) => handleMouseClickRef.current(e);
 
-    document.addEventListener("keydown", handler);
+    document.addEventListener("keydown", keyPressandler);
+    document.addEventListener("click", mouseClickHandler);
 
     // Clean up the event listener when the component unmounts.
     return () => {
-      document.removeEventListener("keydown", handler);
+      document.removeEventListener("keydown", keyPressandler);
+      document.addEventListener("click", mouseClickHandler);
     };
   }, []);
 
@@ -124,111 +158,134 @@ export function SudokuBoard() {
     }
   }
 
+  function handleMouseClickPress(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (
+      !target.parentElement?.classList.contains("sudoku-board") &&
+      !target.parentElement?.classList.contains("sudoku-controls")
+    ) {
+      setSelectedCell(null);
+      setSelectedCellCoords(null);
+    }
+  }
+
   return (
     <>
-      <div className="w-full max-w-sm">
+      <div className="w-full mx-auto flex flex-col gap-2 min-h-full items-center justify-center">
         {board && (
           <>
-            <div className="flex flex-col gap-2 justify-center">
-              <div className="flex items-end justify-between">
-                <div>
-                  <p className="capitalize">Difficulty: {difficulty}</p>
-                  {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
-                </div>
-                <GameTimer />
+            <div className="sudoku-header w-full flex items-end justify-between">
+              <div>
+                <p className="capitalize">Difficulty: {difficulty}</p>
+                {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
               </div>
+              <GameTimer />
+            </div>
 
-              <div className="relative overflow-hidden grid grid-cols-9 border-l-1 grid-rows-9 gap-0 border border-secondary aspect-square">
-                {[...board.puzzle].map((value, index) => {
-                  const cellCoords = {
-                    row: Math.floor(index / 9),
-                    col: index % 9,
-                  };
-                  const thickBorder = [
-                    cellCoords.col % 3 === 0
-                      ? "border-l-1"
-                      : "border-l-[0.5px]",
-                    cellCoords.col % 3 === 2
-                      ? "border-r-1"
-                      : "border-r-[0.5px]",
-                    cellCoords.row % 3 === 0
-                      ? "border-t-1"
-                      : "border-t-[0.5px]",
-                    cellCoords.row % 3 === 2
-                      ? "border-b-1"
-                      : "border-b-[0.5px]",
-                  ].join(" ");
-                  const altBg = [
-                    cellCoords.col < 3 && cellCoords.row < 3
-                      ? "bg-purple/10"
-                      : "",
-                    cellCoords.col > 5 && cellCoords.row < 3
-                      ? "bg-purple/10"
-                      : "",
-                    cellCoords.col > 2 &&
-                    cellCoords.col < 6 &&
-                    cellCoords.row > 2 &&
-                    cellCoords.row < 6
-                      ? "bg-purple/10"
-                      : "",
-                    cellCoords.col < 3 && cellCoords.row > 5
-                      ? "bg-purple/10"
-                      : "",
-                    cellCoords.col > 5 && cellCoords.row > 5
-                      ? "bg-purple/10"
-                      : "",
-                  ];
+            <div className="sudoku-board w-full relative overflow-hidden grid grid-cols-9 border-l-1 grid-rows-9 gap-0 border border-secondary aspect-square">
+              {[...board.puzzle].map((value, index) => {
+                const cellCoords = {
+                  row: Math.floor(index / 9),
+                  col: index % 9,
+                };
+                const thickBorder = [
+                  cellCoords.col % 3 === 0 ? "border-l-1" : "border-l-[0.5px]",
+                  cellCoords.col % 3 === 2 ? "border-r-1" : "border-r-[0.5px]",
+                  cellCoords.row % 3 === 0 ? "border-t-1" : "border-t-[0.5px]",
+                  cellCoords.row % 3 === 2 ? "border-b-1" : "border-b-[0.5px]",
+                ].join(" ");
+                const altBg = [
+                  cellCoords.col < 3 && cellCoords.row < 3
+                    ? "bg-purple/10"
+                    : "",
+                  cellCoords.col > 5 && cellCoords.row < 3
+                    ? "bg-purple/10"
+                    : "",
+                  cellCoords.col > 2 &&
+                  cellCoords.col < 6 &&
+                  cellCoords.row > 2 &&
+                  cellCoords.row < 6
+                    ? "bg-purple/10"
+                    : "",
+                  cellCoords.col < 3 && cellCoords.row > 5
+                    ? "bg-purple/10"
+                    : "",
+                  cellCoords.col > 5 && cellCoords.row > 5
+                    ? "bg-purple/10"
+                    : "",
+                ];
 
-                  return (
-                    <button
-                      key={`${index}`}
-                      onClick={() => handleSelectCell(index)}
-                      // disabled={[...originalBoard!.puzzle][index] !== "-"}
-                      className={cn([
-                        "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
-                        altBg,
-                        selectedCellCoords?.row === cellCoords.row
-                          ? "bg-purple/30"
-                          : "",
-                        selectedCellCoords?.col === cellCoords.col
-                          ? "bg-purple/30"
-                          : "",
-                        value === board.puzzle[selectedCell!] && value !== "-"
-                          ? "bg-blue/30"
-                          : "",
-                        selectedCell === index ? "bg-blue/30 font-bold" : "",
-                        getCellTextColor(index),
-                        thickBorder,
-                      ])}
-                    >
-                      {value !== "-" ? value : ""}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="grid grid-cols-10 gap-2 mb-12 md:mb-0">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                  <Button
-                    key={num}
-                    onClick={() => handleSetValue(num.toString())}
-                    className="w-full h-16 md:h-9 font-bold"
-                    disabled={
-                      board!.puzzle.match(new RegExp(`${num}`, "g"))?.length ===
-                      9
-                    }
+                return (
+                  <button
+                    key={`${index}`}
+                    onClick={() => handleSelectCell(index)}
+                    // disabled={[...originalBoard!.puzzle][index] !== "-"}
+                    className={cn([
+                      "sudoku-cell",
+                      "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
+                      altBg,
+                      selectedCellCoords?.row === cellCoords.row
+                        ? "bg-purple/30"
+                        : "",
+                      selectedCellCoords?.col === cellCoords.col
+                        ? "bg-purple/30"
+                        : "",
+                      value === board.puzzle[selectedCell!] && value !== "-"
+                        ? "bg-blue/30"
+                        : "",
+                      selectedCell === index ? "bg-blue/30 font-bold" : "",
+                      getCellTextColor(index),
+                      thickBorder,
+                    ])}
                   >
-                    {num}
-                  </Button>
-                ))}
+                    {value !== "-" ? value : ""}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="sudoku-controls w-full grid grid-cols-5 md:grid-cols-10 grid-rows-2 md:grid-rows-1 gap-2 mb-12 md:mb-0">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <Button
-                  onClick={() => handleSetValue("-")}
-                  className="w-full h-16 md:h-9 font-bold"
+                  key={num}
+                  onClick={() => handleSetValue(num.toString())}
+                  className="w-full h-16 md:h-9 font-bold text-3xl md:text-lg"
+                  disabled={
+                    board!.puzzle.match(new RegExp(`${num}`, "g"))?.length === 9
+                  }
                 >
-                  X
+                  {num}
+                </Button>
+              ))}
+              <Button
+                onClick={() => handleSetValue("-")}
+                className="w-full h-16 md:h-9 font-bold text-3xl md:text-lg"
+                variant="link"
+              >
+                <PiBackspaceDuotone className="size-15 md:size-8 text-pink" />
+                <span className="sr-only">Clear value</span>
+              </Button>
+            </div>
+
+            {process.env.NEXT_PUBLIC_GAME_DEBUG && (
+              <div className="flex gap-4">
+                <Button variant="outline" size="sm" onClick={printSolution}>
+                  Print Solution to Console
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setBoard({
+                      ...board,
+                      puzzle: board.solution,
+                    });
+                  }}
+                >
+                  Autofill
                 </Button>
               </div>
-            </div>
+            )}
           </>
         )}
       </div>

@@ -16,14 +16,11 @@ import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { ButtonProps } from "../ui/button";
 
-export function NewGameButton({ children, ...props }: ButtonProps) {
-  const { newGame } = useSudokuGameStore();
+export function NewGameButton({
+  children,
+  ...props
+}: ButtonProps & { defaultOpen?: boolean }) {
   const [open, setOpen] = useState(false);
-
-  function handleSelection(value: Difficulty) {
-    newGame(value);
-    setOpen(false);
-  }
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
@@ -37,31 +34,53 @@ export function NewGameButton({ children, ...props }: ButtonProps) {
           <DialogTitle className="text-center mb-4">
             Select a difficulty to begin:
           </DialogTitle>
-          <ToggleGroup
-            type="single"
-            variant="outline"
-            className="flex w-full"
-            size="lg"
-            onValueChange={(value: Difficulty) => handleSelection(value)}
-          >
-            <ToggleGroupItem className="cursor-pointer" value="easy">
-              Easy
-            </ToggleGroupItem>
-            <ToggleGroupItem className="cursor-pointer" value="medium">
-              Medium
-            </ToggleGroupItem>
-            <ToggleGroupItem className="cursor-pointer" value="hard">
-              Hard
-            </ToggleGroupItem>
-            <ToggleGroupItem className="cursor-pointer" value="expert">
-              Expert
-            </ToggleGroupItem>
-          </ToggleGroup>
+          <DifficultySelector onSelect={() => setOpen(false)} />
         </DialogHeader>
         <DialogFooter>
           <DialogClose>Cancel</DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function DifficultySelector({
+  onSelect,
+}: {
+  onSelect?: (value: Difficulty) => void;
+}) {
+  const { newGame } = useSudokuGameStore();
+
+  function handleSelection(value: Difficulty) {
+    if (onSelect) onSelect(value);
+    newGame(value);
+  }
+
+  return (
+    <>
+      <ToggleGroup
+        type="single"
+        variant="outline"
+        className="flex w-full"
+        size="lg"
+        onValueChange={(value: Difficulty) => handleSelection(value)}
+      >
+        <ToggleGroupItem className="cursor-pointer" value="easy">
+          Easy*
+        </ToggleGroupItem>
+        <ToggleGroupItem className="cursor-pointer" value="medium">
+          Medium
+        </ToggleGroupItem>
+        <ToggleGroupItem className="cursor-pointer" value="hard">
+          Hard
+        </ToggleGroupItem>
+        <ToggleGroupItem className="cursor-pointer" value="expert">
+          Expert
+        </ToggleGroupItem>
+      </ToggleGroup>
+      <p className="text-xs text-center my-1">
+        <em>*Easy difficulty does not track errors</em>.
+      </p>
+    </>
   );
 }
