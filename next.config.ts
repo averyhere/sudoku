@@ -39,26 +39,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/sudoku",
-        permanent: false,
-      },
-      {
-        source: "/",
-        has: [
-          {
-            type: "host",
-            value: "sudoku.averyhere.com",
-          },
-        ],
-        destination: "https://games.averyhere.com/sudoku",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 export default nextConfig;
