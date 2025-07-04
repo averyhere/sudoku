@@ -3,8 +3,7 @@ import { SudokuHeader } from "@/components/Sudoku";
 
 export default function Page() {
   return (
-    <main className="flex flex-col gap-2 h-full">
-      <h2 className="text-xl font-bold">Time Passer</h2>
+    <main className="flex flex-col gap-2 w-full h-full max-w-sm">
       <SudokuHeader />
       <SudokuBoard />
     </main>

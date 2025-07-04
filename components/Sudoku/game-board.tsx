@@ -247,6 +247,7 @@ export function SudokuBoard() {
             <div className="sudoku-controls w-full grid grid-cols-5 md:grid-cols-10 grid-rows-2 md:grid-rows-1 gap-2 mb-12 md:mb-0">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <Button
+                  variant="default"
                   key={num}
                   onClick={() => handleSetValue(num.toString())}
                   className="w-full h-16 md:h-9 font-bold text-3xl md:text-lg"
@@ -259,10 +260,11 @@ export function SudokuBoard() {
               ))}
               <Button
                 onClick={() => handleSetValue("-")}
+                variant="default"
+                size="icon"
                 className="w-full h-16 md:h-9 font-bold text-3xl md:text-lg"
-                variant="link"
               >
-                <PiBackspaceDuotone className="size-15 md:size-8 text-pink" />
+                <PiBackspaceDuotone className="size-10 md:size-6" />
                 <span className="sr-only">Clear value</span>
               </Button>
             </div>
