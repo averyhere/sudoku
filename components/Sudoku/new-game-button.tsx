@@ -58,26 +58,12 @@ export function DifficultySelector({
 
   return (
     <>
-      <ToggleGroup
-        type="single"
-        variant="outline"
-        className="flex w-full"
-        size="lg"
-        onValueChange={(value: Difficulty) => handleSelection(value)}
-      >
-        <ToggleGroupItem className="cursor-pointer" value="easy">
-          Easy*
-        </ToggleGroupItem>
-        <ToggleGroupItem className="cursor-pointer" value="medium">
-          Medium
-        </ToggleGroupItem>
-        <ToggleGroupItem className="cursor-pointer" value="hard">
-          Hard
-        </ToggleGroupItem>
-        <ToggleGroupItem className="cursor-pointer" value="expert">
-          Expert
-        </ToggleGroupItem>
-      </ToggleGroup>
+      <div className="flex flex-row gap-8 justify-center">
+        <Button onClick={() => handleSelection("easy")}>Easy*</Button>
+        <Button onClick={() => handleSelection("medium")}>Medium</Button>
+        <Button onClick={() => handleSelection("hard")}>Hard</Button>
+        <Button onClick={() => handleSelection("expert")}>Expert</Button>
+      </div>
       <p className="text-xs text-center my-1">
         <em>*Easy difficulty does not track errors</em>.
       </p>

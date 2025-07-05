@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { cn, formatTime } from "@/lib/utils";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Button } from "@/components/ui/button";
@@ -22,11 +21,12 @@ export function SudokuBoard() {
     originalBoard,
     pointer,
     setPointer,
+    gameStatus,
+    setGameStatus,
     timer,
     reset,
     errorCount,
   } = useSudokuGameStore();
-  const [gameStatus, setGameStatus] = useState<null | "won" | "lost">(null);
 
   const getCellTextColor = (index: number): string => {
     const value = [...board!.puzzle][index];
@@ -52,7 +52,7 @@ export function SudokuBoard() {
             <GameTimer />
           </div>
 
-          <div className="sudoku-board w-full relative overflow-hidden grid grid-cols-9 border-l-1 grid-rows-9 gap-0 border border-secondary aspect-square">
+          <div className="sudoku-board w-full relative overflow-hidden grid grid-cols-9 border-l-1 grid-rows-9 gap-0 border border-purple aspect-square">
             {[...board.puzzle].map((value, index) => {
               const cellCoords = {
                 row: Math.floor(index / 9),
@@ -65,16 +65,16 @@ export function SudokuBoard() {
                 cellCoords.row % 3 === 2 ? "border-b-1" : "border-b-[0.5px]",
               ].join(" ");
               const altBg = [
-                cellCoords.col < 3 && cellCoords.row < 3 ? "bg-purple/10" : "",
-                cellCoords.col > 5 && cellCoords.row < 3 ? "bg-purple/10" : "",
+                cellCoords.col < 3 && cellCoords.row < 3 ? "bg-blue/5" : "",
+                cellCoords.col > 5 && cellCoords.row < 3 ? "bg-blue/5" : "",
                 cellCoords.col > 2 &&
                 cellCoords.col < 6 &&
                 cellCoords.row > 2 &&
                 cellCoords.row < 6
-                  ? "bg-purple/10"
+                  ? "bg-blue/5"
                   : "",
-                cellCoords.col < 3 && cellCoords.row > 5 ? "bg-purple/10" : "",
-                cellCoords.col > 5 && cellCoords.row > 5 ? "bg-purple/10" : "",
+                cellCoords.col < 3 && cellCoords.row > 5 ? "bg-blue/5" : "",
+                cellCoords.col > 5 && cellCoords.row > 5 ? "bg-blue/5" : "",
               ];
 
               return (
@@ -84,18 +84,20 @@ export function SudokuBoard() {
                   // disabled={[...originalBoard!.puzzle][index] !== "-"}
                   className={cn([
                     "sudoku-cell",
-                    "flex items-center justify-center text-lg font-mono border-secondary hover:bg-[var(--blue)]/30",
+                    "flex items-center justify-center text-2xl border-purple hover:bg-[var(--blue)]/30",
                     altBg,
+                    thickBorder,
                     pointer?.row === cellCoords.row ? "bg-purple/30" : "",
                     pointer?.col === cellCoords.col ? "bg-purple/30" : "",
                     pointer?.index &&
                     value === board.puzzle[pointer.index] &&
                     value !== "-"
-                      ? "bg-blue/30"
+                      ? "bg-pink/10 dark:bg-pink/20"
                       : "",
-                    pointer?.index === index ? "bg-blue/30 font-bold" : "",
+                    pointer?.index === index
+                      ? "bg-pink/40 border-2 border-pink"
+                      : "",
                     getCellTextColor(index),
-                    thickBorder,
                   ])}
                 >
                   {value !== "-" ? value : ""}

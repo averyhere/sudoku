@@ -22,7 +22,8 @@ export const columns: ColumnDef<Score>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Result
@@ -40,7 +41,8 @@ export const columns: ColumnDef<Score>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Difficulty
@@ -58,7 +60,8 @@ export const columns: ColumnDef<Score>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Time
@@ -77,7 +80,8 @@ export const columns: ColumnDef<Score>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Errors
@@ -97,7 +101,8 @@ export const columns: ColumnDef<Score>[] = [
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
+          variant="link"
+          className="text-black"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date

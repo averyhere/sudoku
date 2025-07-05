@@ -1,21 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lexendDeca = Lexend_Deca({
+  variable: "--font-lexend-deca",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+};
 
 export const metadata: Metadata = {
   title: "Sudoku by Avery Ondo",
@@ -45,11 +45,9 @@ export default function RootLayout({
         />
         <meta name="apple-mobile-web-app-title" content="Sudoku" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${lexendDeca.variable} ${lexendDeca.className}`}>
         <Providers>
-          <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-2 md:px-4">
+          <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-3 md:px-4">
             <Header />
             <div className="flex items-center pb-8 md:items-start justify-center h-full">
               {children}
