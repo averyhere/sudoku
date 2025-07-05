@@ -41,9 +41,9 @@ const buttonVariants = cva(
       },
       size: {
         default: "px-4 py-2 has-[>svg]:px-3",
-        xs: "text-xs gap-1 px-1.5 has-[>svg]:px-0.5",
-        sm: "text-sm gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "text-lg px-6 has-[>svg]:px-4",
+        xs: "text-xs gap-1 px-2 py-1 has-[>svg]:px-0.5",
+        sm: "text-sm px-3 py-1.5 has-[>svg]:px-2.5",
+        lg: "text-xl px-4 py-2 has-[>svg]:px-4",
         num: "size-full",
         icon: "size-8",
       },

@@ -11,7 +11,7 @@ const ExternalLinks = [
         <span>GitHub</span>
       </>
     ),
-    href: "https://github.com/averyondo/time-passer",
+    href: "https://github.com/averyhere/sudoku",
   },
 ];
 

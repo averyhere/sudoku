@@ -36,7 +36,11 @@ export function NewGameButton({
           <DifficultySelector onSelect={() => setOpen(false)} />
         </DialogHeader>
         <DialogFooter>
-          <DialogClose>Cancel</DialogClose>
+          <DialogClose asChild>
+            <Button variant="outline" size="sm">
+              Cancel
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -57,11 +61,19 @@ export function DifficultySelector({
 
   return (
     <>
-      <div className="flex flex-row gap-8 justify-center">
-        <Button onClick={() => handleSelection("easy")}>Easy*</Button>
-        <Button onClick={() => handleSelection("medium")}>Medium</Button>
-        <Button onClick={() => handleSelection("hard")}>Hard</Button>
-        <Button onClick={() => handleSelection("expert")}>Expert</Button>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
+        <Button size="lg" onClick={() => handleSelection("easy")}>
+          Easy*
+        </Button>
+        <Button size="lg" onClick={() => handleSelection("medium")}>
+          Medium
+        </Button>
+        <Button size="lg" onClick={() => handleSelection("hard")}>
+          Hard
+        </Button>
+        <Button size="lg" onClick={() => handleSelection("expert")}>
+          Expert
+        </Button>
       </div>
       <p className="text-xs text-center my-1">
         <em>*Easy difficulty does not track errors</em>.
