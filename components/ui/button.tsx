@@ -15,6 +15,7 @@ const buttonVariants = cva(
           "after:content[''] after:bg-blue after:transition-all after:w-full after:h-full after:absolute after:top-[.25rem] after:left-[.25rem] after:-z-20",
           "hover:after:top-1.5 hover:after:left-1.5",
           "active:translate-x-[.25rem] active:translate-y-[.25rem] active:after:top-0 active:after:left-0",
+          "dark:before:bg-bright-purple dark:after:bg-purple",
         ],
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
@@ -29,10 +30,10 @@ const buttonVariants = cva(
         ],
         ghost: [
           "text-foreground hover:text-white",
-          "before:content[''] before:bg-transparent hover:before:bg-purple before:transition-all before:w-full before:h-full before:absolute before:top-0 before:left-0 before:-z-10",
-          "after:content[''] after:bg-transparent hover:after:bg-pink/30 after:transition-all after:w-full after:h-full after:absolute after:top-[.25rem] after:left-[.25rem] after:-z-20",
-          "hover:after:top-1.5 hover:after:left-1.5",
-          "active:translate-x-[.25rem] active:translate-y-[.25rem] active:after:top-0 active:after:left-0",
+          // "before:content[''] before:bg-transparent hover:before:bg-purple before:transition-all before:w-full before:h-full before:absolute before:top-0 before:left-0 before:-z-10",
+          // "after:content[''] after:bg-transparent hover:after:bg-pink/30 after:transition-all after:w-full after:h-full after:absolute after:top-[.25rem] after:left-[.25rem] after:-z-20",
+          // "hover:after:top-1.5 hover:after:left-1.5",
+          // "active:translate-x-[.25rem] active:translate-y-[.25rem] active:after:top-0 active:after:left-0",
         ],
         // ghost:
         //   "hover:bg-purple/20 hover:text-accent-foreground dark:hover:bg-purple/20",

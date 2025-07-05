@@ -9,7 +9,6 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";

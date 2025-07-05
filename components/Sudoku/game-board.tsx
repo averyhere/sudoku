@@ -65,16 +65,24 @@ export function SudokuBoard() {
                 cellCoords.row % 3 === 2 ? "border-b-1" : "border-b-[0.5px]",
               ].join(" ");
               const altBg = [
-                cellCoords.col < 3 && cellCoords.row < 3 ? "bg-blue/5" : "",
-                cellCoords.col > 5 && cellCoords.row < 3 ? "bg-blue/5" : "",
+                cellCoords.col < 3 && cellCoords.row < 3
+                  ? "bg-blue/5 dark:bg-purple/10"
+                  : "",
+                cellCoords.col > 5 && cellCoords.row < 3
+                  ? "bg-blue/5 dark:bg-purple/10"
+                  : "",
                 cellCoords.col > 2 &&
                 cellCoords.col < 6 &&
                 cellCoords.row > 2 &&
                 cellCoords.row < 6
-                  ? "bg-blue/5"
+                  ? "bg-blue/5 dark:bg-purple/10"
                   : "",
-                cellCoords.col < 3 && cellCoords.row > 5 ? "bg-blue/5" : "",
-                cellCoords.col > 5 && cellCoords.row > 5 ? "bg-blue/5" : "",
+                cellCoords.col < 3 && cellCoords.row > 5
+                  ? "bg-blue/5 dark:bg-purple/10"
+                  : "",
+                cellCoords.col > 5 && cellCoords.row > 5
+                  ? "bg-blue/5 dark:bg-purple/10"
+                  : "",
               ];
 
               return (
@@ -87,8 +95,12 @@ export function SudokuBoard() {
                     "flex items-center justify-center text-2xl border-purple hover:bg-[var(--blue)]/30",
                     altBg,
                     thickBorder,
-                    pointer?.row === cellCoords.row ? "bg-purple/30" : "",
-                    pointer?.col === cellCoords.col ? "bg-purple/30" : "",
+                    pointer?.row === cellCoords.row
+                      ? "bg-purple/30 dark:bg-purple/30"
+                      : "",
+                    pointer?.col === cellCoords.col
+                      ? "bg-purple/30 dark:bg-purple/30"
+                      : "",
                     pointer?.index &&
                     value === board.puzzle[pointer.index] &&
                     value !== "-"
