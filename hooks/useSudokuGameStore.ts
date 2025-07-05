@@ -9,10 +9,13 @@ type SudokuGameState = {
   difficulty: Difficulty | undefined;
   board: Sudoku | undefined; // Current puzzle state
   originalBoard: Sudoku | undefined; // Original puzzle (read-only reference)
+  pointer: null | { index: number; row: number; col: number };
   timer: number; // Elapsed time in seconds
   isPaused: boolean;
   setBoard: (board: Sudoku) => void;
   setOriginalBoard: (board: Sudoku) => void;
+  setPointer: (index: number) => void;
+  clearPointer: () => void;
   tick: () => void;
   pause: () => void;
   resume: () => void;
@@ -35,6 +38,8 @@ type SudokuGameState = {
     result: "won" | "lost";
   }) => void;
   clearScores: () => void;
+  gameStatus: null | "won" | "lost";
+  setGameStatus: (status: null | "won" | "lost") => void;
 };
 
 export const useSudokuGameStore = create<SudokuGameState>()(
@@ -43,10 +48,21 @@ export const useSudokuGameStore = create<SudokuGameState>()(
       difficulty: undefined,
       board: undefined,
       originalBoard: undefined,
+      pointer: null,
       timer: 0,
       isPaused: true,
       setBoard: (board) => set({ board }),
       setOriginalBoard: (board) => set({ originalBoard: board }),
+      setPointer: (index) => {
+        set({
+          pointer: {
+            index: index,
+            row: Math.floor(index / 9),
+            col: index % 9,
+          },
+        });
+      },
+      clearPointer: () => set({ pointer: null }),
       tick: () =>
         set((state) => (state.isPaused ? state : { timer: state.timer + 1 })),
       pause: () => set({ isPaused: true }),
@@ -96,6 +112,9 @@ export const useSudokuGameStore = create<SudokuGameState>()(
           ],
         })),
       clearScores: () => set({ scoreboard: [] }),
+      gameStatus: null,
+      setGameStatus: (status: null | "won" | "lost") =>
+        set({ gameStatus: status }),
     }),
     {
       name: "sudoku-game", // key in localStorage
