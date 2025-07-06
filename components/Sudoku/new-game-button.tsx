@@ -60,7 +60,7 @@ export function DifficultySelector({
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-1">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-center">
         <Button size="lg" onClick={() => handleSelection("easy")}>
           Easy*
@@ -78,6 +78,6 @@ export function DifficultySelector({
       <p className="text-xs text-center my-1">
         <em>*Easy difficulty does not track errors</em>.
       </p>
-    </>
+    </div>
   );
 }

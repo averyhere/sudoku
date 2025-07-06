@@ -5,7 +5,7 @@ import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { Sudoku } from "sudoku-gen/dist/types/sudoku.type";
 import type { ScoreType } from "@/components/Sudoku/scoreboard";
 
-type SudokuGameState = {
+export type SudokuGameState = {
   difficulty: Difficulty | undefined;
   board: Sudoku | undefined; // Current puzzle state
   originalBoard: Sudoku | undefined; // Original puzzle (read-only reference)
@@ -76,6 +76,7 @@ export const useSudokuGameStore = create<SudokuGameState>()(
           timer: 0,
           isPaused: true,
           errorCount: 0,
+          gameStatus: null,
         });
       },
       reset: () => {
@@ -86,6 +87,7 @@ export const useSudokuGameStore = create<SudokuGameState>()(
           timer: 0,
           isPaused: true,
           errorCount: 0,
+          gameStatus: null,
         }));
       },
       errorCount: 0,

@@ -2,17 +2,16 @@
 
 import { cn, formatTime } from "@/lib/utils";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/Sudoku/timer";
 import { SudokuControls } from "@/components/Sudoku/controls";
+import { DifficultySelector } from "./new-game-button";
 
 export function SudokuBoard() {
   const {
@@ -24,7 +23,6 @@ export function SudokuBoard() {
     gameStatus,
     setGameStatus,
     timer,
-    reset,
     errorCount,
   } = useSudokuGameStore();
 
@@ -101,7 +99,7 @@ export function SudokuBoard() {
                     pointer && pointer.col === cellCoords.col
                       ? "bg-purple/30 dark:bg-purple/30"
                       : "",
-                    pointer?.index &&
+                    pointer?.index !== undefined &&
                     value === board.puzzle[pointer.index] &&
                     value !== "-"
                       ? "bg-pink/10 dark:bg-pink/20"
@@ -149,11 +147,7 @@ export function SudokuBoard() {
             <li>Time taken: {formatTime(timer)} seconds</li>
             {difficulty === "easy" && <li>Mistakes made: {errorCount} / 5</li>}
           </ul>
-          <DialogFooter>
-            <Button onClick={reset} className="w-max m-auto">
-              {gameStatus === "won" ? "Play again" : "Try again"}
-            </Button>
-          </DialogFooter>
+          <DifficultySelector />
         </DialogContent>
       </Dialog>
     </>
