@@ -45,7 +45,7 @@ export function SudokuBoard() {
           <div className="sudoku-header w-full flex items-end justify-between">
             <div>
               <p className="capitalize">Difficulty: {difficulty}</p>
-              {difficulty !== "easy" && <p>Errors: {errorCount}/5</p>}
+              {difficulty !== "easy" && <p>Mistakes: {errorCount}/5</p>}
             </div>
             <GameTimer />
           </div>
@@ -140,12 +140,21 @@ export function SudokuBoard() {
                 : "Better luck next time!"}
             </DialogDescription>
           </DialogHeader>
-          <ul className="text-center text-sm text-foreground/80">
-            <li>
-              Difficulty: <span className="capitalize">{difficulty}</span>
+          <ul className="w-full flex gap-4 justify-center text-center text-sm text-foreground/80">
+            <li className="flex flex-col">
+              <span className="text-sm">Difficulty</span>
+              <strong className="font-bold text-lg">
+                <span className="capitalize">{difficulty}</span>
+              </strong>
             </li>
-            <li>Time taken: {formatTime(timer)} seconds</li>
-            {difficulty === "easy" && <li>Mistakes made: {errorCount} / 5</li>}
+            <li className="flex flex-col">
+              <span className="text-sm">Time</span>
+              <strong className="font-bold text-xl">{formatTime(timer)}</strong>
+            </li>
+            <li className="flex flex-col">
+              <span className="text-sm">Mistakes</span>
+              <strong className="font-bold text-xl">{errorCount} / 5</strong>
+            </li>
           </ul>
           <DifficultySelector />
         </DialogContent>

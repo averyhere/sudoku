@@ -23,7 +23,7 @@ export const columns: ColumnDef<Score>[] = [
       return (
         <Button
           variant="link"
-          className="text-black"
+          className="text-bright-purple dark:text-purple"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Result
@@ -42,7 +42,7 @@ export const columns: ColumnDef<Score>[] = [
       return (
         <Button
           variant="link"
-          className="text-black"
+          className="text-bright-purple dark:text-purple"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Difficulty
@@ -61,7 +61,7 @@ export const columns: ColumnDef<Score>[] = [
       return (
         <Button
           variant="link"
-          className="text-black"
+          className="text-bright-purple dark:text-purple"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Time
@@ -81,7 +81,7 @@ export const columns: ColumnDef<Score>[] = [
       return (
         <Button
           variant="link"
-          className="text-black"
+          className="text-bright-purple dark:text-purple"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Errors
@@ -102,7 +102,7 @@ export const columns: ColumnDef<Score>[] = [
       return (
         <Button
           variant="link"
-          className="text-black"
+          className="text-bright-purple dark:text-purple"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date

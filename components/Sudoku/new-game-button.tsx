@@ -75,8 +75,8 @@ export function DifficultySelector({
           Expert
         </Button>
       </div>
-      <p className="text-xs text-center my-1">
-        <em>*Easy difficulty does not track errors</em>.
+      <p className="text-xs text-center mt-4 text-purple">
+        <em>*Easy difficulty does not track mistakes</em>.
       </p>
     </div>
   );

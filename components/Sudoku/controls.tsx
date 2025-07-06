@@ -58,7 +58,7 @@ export const SudokuControls = () => {
       setGameStatus("won");
     }
 
-    if (errorCount >= 5) {
+    if (errorCount === 4) {
       pause();
       addScore({
         time: timer,
