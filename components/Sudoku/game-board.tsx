@@ -156,6 +156,9 @@ export function SudokuBoard() {
               <strong className="font-bold text-xl">{errorCount} / 5</strong>
             </li>
           </ul>
+          <h3 className="text-lg font-semibold text-center">
+            Let&#39;s play again!
+          </h3>
           <DifficultySelector />
         </DialogContent>
       </Dialog>

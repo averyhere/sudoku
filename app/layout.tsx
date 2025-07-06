@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
+import { SkipToMainContentLink } from "@/components/main";
 import "./globals.css";
 
 const lexendDeca = Lexend_Deca({
@@ -46,6 +47,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Sudoku" />
       </head>
       <body className={`${lexendDeca.variable} ${lexendDeca.className}`}>
+        <SkipToMainContentLink />
         <Providers>
           <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-3 md:px-4">
             <Header />

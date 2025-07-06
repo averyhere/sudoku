@@ -2,14 +2,15 @@
 // import { Button } from "@/components/ui/button";
 // import { PiGridFourDuotone } from "react-icons/pi";
 import { SudokuBoard } from "@/components/Sudoku";
+import { Main } from "@/components/main";
 // import { SudokuHeader } from "@/components/Sudoku";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-2 w-full h-full max-w-sm">
+    <Main className="flex flex-col items-center justify-center gap-2 w-full h-full max-w-sm">
       {/* <SudokuHeader /> */}
       <SudokuBoard />
-    </main>
+    </Main>
   );
 
   // return (

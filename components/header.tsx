@@ -9,8 +9,8 @@ const ExternalLinks = [
   {
     label: (
       <>
-        <Github className="size-4" />
-        <span>GitHub</span>
+        <Github className="size-6" />
+        <span className="sr-only">GitHub</span>
       </>
     ),
     href: "https://github.com/averyhere/sudoku",
@@ -38,6 +38,9 @@ export function Header() {
               </Link>
             </div>
           </div>
+
+          <NewGameButton variant="link">New Game</NewGameButton>
+          <ScoreboardButton variant="link">Scoreboard</ScoreboardButton>
         </div>
         <div className="flex gap-4 items-center">
           <ul className="hidden md:flex gap-8">
@@ -52,10 +55,10 @@ export function Header() {
           <ThemeToggle />
         </div>
       </div>
-      <div className="w-full mb-4 flex gap-4 items-center justify-center">
+      {/* <div className="w-full mb-4 flex gap-4 items-center justify-end">
         <NewGameButton variant="default">New Game</NewGameButton>
         <ScoreboardButton variant="default">Scoreboard</ScoreboardButton>
-      </div>
+      </div> */}
     </header>
   );
 }
