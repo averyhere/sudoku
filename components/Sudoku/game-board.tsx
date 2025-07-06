@@ -43,7 +43,7 @@ export function SudokuBoard() {
   return (
     <>
       {board && (
-        <div className="w-full mx-auto flex flex-col gap-2 min-h-full items-center justify-center">
+        <div className="w-full mx-auto flex flex-col gap-2 items-center justify-center">
           <div className="sudoku-header w-full flex items-end justify-between">
             <div>
               <p className="capitalize">Difficulty: {difficulty}</p>
