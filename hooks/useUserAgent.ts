@@ -10,6 +10,7 @@ export default function useUserAgent() {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [userAgent, setUserAgent] = useState<string | null>(null);
   const [isIOS, setIsIOS] = useState<boolean | null>(null);
+  const [isAndroid, setIsAndroid] = useState<boolean | null>(null);
   const [isStandalone, setIsStandalone] = useState<boolean | null>(null);
   const [userAgentString, setUserAgentString] = useState<string | null>(null);
 
@@ -45,6 +46,7 @@ export default function useUserAgent() {
       const isIOS = userAgentString.match(/iPhone|iPad|iPod/i);
       const isAndroid = userAgentString.match(/Android/i);
       setIsIOS(isIOS ? true : false);
+      setIsAndroid(isAndroid ? true : false);
       const isMobile = isIOS || isAndroid;
       setIsMobile(!!isMobile);
 
@@ -55,5 +57,12 @@ export default function useUserAgent() {
     }
   }, []);
 
-  return { isMobile, userAgent, isIOS, isStandalone, userAgentString };
+  return {
+    isMobile,
+    userAgent,
+    isIOS,
+    isAndroid,
+    isStandalone,
+    userAgentString,
+  };
 }

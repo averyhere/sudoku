@@ -4,7 +4,6 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { AddToHomeScreen } from "@/components/AddToHomeScreen";
 import { SkipToMainContentLink } from "@/components/main";
 import "./globals.css";
 
@@ -54,7 +53,6 @@ export default function RootLayout({
             <div className="flex items-center pb-8 md:items-start justify-center h-full">
               {children}
             </div>
-            <AddToHomeScreen />
             <Footer />
           </div>
           <Analytics />

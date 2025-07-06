@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { setCookie, getCookie } from "cookies-next";
 import dynamic from "next/dynamic";
+import { PiAndroidLogoDuotone, PiAppleLogoDuotone } from "react-icons/pi";
 
 const ModuleLoading = () => (
   <p className="animate-bounce text-white font-bold">Loading...</p>
@@ -57,8 +58,12 @@ const COOKIE_NAME = "addToHomeScreenPrompt";
 export function AddToHomeScreen() {
   const [displayPrompt, setDisplayPrompt] =
     useState<AddToHomeScreenPromptType>("");
-  const { userAgent, isMobile, isStandalone, isIOS } = useUserAgent();
+  const { userAgent, isMobile, isStandalone, isIOS, isAndroid } =
+    useUserAgent();
   const addToHomeScreenPromptCookie = getCookie(COOKIE_NAME);
+  const [isOpen, setIsOpen] = useState<boolean>(
+    addToHomeScreenPromptCookie === "dontShow" ? false : true,
+  );
 
   // const closePrompt = () => {
   //   setDisplayPrompt("");
@@ -116,19 +121,37 @@ export function AddToHomeScreen() {
     </>
   );
 
-  if (displayPrompt === "desktop") {
+  if (displayPrompt === "desktop" || displayPrompt === "other") {
     return null;
   }
 
-  const defaultOpen =
-    (addToHomeScreenPromptCookie === "dontShow" ? false : true) &&
-    displayPrompt !== "other";
+  const handleOpenChange = () => {
+    const mainElement = document.getElementById("main-content") as HTMLElement;
+    setIsOpen(!isOpen);
+    mainElement.focus();
+  };
 
   return (
     <>
-      <Drawer defaultOpen={defaultOpen}>
-        <DrawerTrigger asChild>
-          <Button variant="ghost">Add this App to your Home Screen</Button>
+      <Drawer
+        open={isOpen}
+        defaultOpen={isOpen}
+        onOpenChange={() => handleOpenChange()}
+      >
+        <DrawerTrigger
+          className="cursor-pointer"
+          onClick={() => handleOpenChange()}
+          asChild
+        >
+          <Button
+            variant="link"
+            size="xs"
+            className="p-0 inline-flex items-center justify-center gap-1"
+          >
+            {isAndroid && <PiAndroidLogoDuotone className="size-4" />}
+            {isIOS && <PiAppleLogoDuotone className="size-4" />}
+            Add this App to your Home Screen
+          </Button>
         </DrawerTrigger>
         <DrawerContent>
           <DrawerHeader>
