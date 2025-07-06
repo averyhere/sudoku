@@ -143,6 +143,10 @@ export const SudokuControls = () => {
           onClick={() => handleSetValue("-")}
           size="icon"
           className="w-full h-16 md:h-9 text-3xl md:text-lg"
+          disabled={
+            !board!.puzzle.includes("-") ||
+            !!(pointer && originalBoard!.puzzle[pointer.index] !== "-")
+          }
         >
           <PiBackspaceDuotone className="size-6 md:size-6" />
           <span className="sr-only">Clear value</span>
