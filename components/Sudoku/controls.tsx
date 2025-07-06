@@ -12,6 +12,7 @@ export const SudokuControls = () => {
     originalBoard,
     setBoard,
     pointer,
+    setPointer,
     clearPointer,
     isPaused,
     resume,
@@ -73,14 +74,15 @@ export const SudokuControls = () => {
 
   function handleKeyPress(event: KeyboardEvent) {
     const key = event.key;
-
-    if (key in ["1", "2", "3", "4", "5", "6", "7", "8", "9", "delete"]) {
+    console.log("keybord click", key, key === "Backspace");
+    if (key === "Delete" || key === "Backspace") {
       event.preventDefault(); // Prevent the default browser behavior for the key.
-      if (key === "Backspace") {
-        handleSetValue("-");
-      } else {
-        handleSetValue(key);
-      }
+      handleSetValue("-");
+      setPointer(null);
+    } else if (key in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
+      event.preventDefault(); // Prevent the default browser behavior for the key.
+      handleSetValue(key);
+      setPointer(null);
     }
   }
 
@@ -138,6 +140,14 @@ export const SudokuControls = () => {
   return (
     <div className="sudoku-controls">
       <div className="w-full grid grid-cols-10 gap-2 mb-12 md:mb-0">
+        <Button
+          onClick={() => handleSetValue("-")}
+          size="icon"
+          className="w-full h-16 md:h-9 text-3xl md:text-lg"
+        >
+          <PiBackspaceDuotone className="size-6 md:size-6" />
+          <span className="sr-only">Clear value</span>
+        </Button>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
           <Button
             variant="default"
@@ -151,18 +161,12 @@ export const SudokuControls = () => {
             {num}
           </Button>
         ))}
-        <Button
-          onClick={() => handleSetValue("-")}
-          variant="default"
-          size="icon"
-          className="w-full h-16 md:h-9 font-bold text-3xl md:text-lg"
-        >
-          <PiBackspaceDuotone className="size-6 md:size-6" />
-          <span className="sr-only">Clear value</span>
-        </Button>
       </div>
-      <div className="flex items-center justify-center">
-        {process.env.NEXT_PUBLIC_GAME_DEBUG && (
+
+      <div className="flex w-full justify-end mt-2"></div>
+
+      {process.env.NEXT_PUBLIC_GAME_DEBUG && (
+        <div className="flex items-center justify-center">
           <div className="flex gap-4">
             <Button variant="outline" size="sm" onClick={printSolution}>
               Print Solution to Console
@@ -180,8 +184,8 @@ export const SudokuControls = () => {
               Autofill
             </Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

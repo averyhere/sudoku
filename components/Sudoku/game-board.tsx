@@ -95,10 +95,10 @@ export function SudokuBoard() {
                     "flex items-center justify-center text-2xl border-purple hover:bg-[var(--blue)]/30",
                     altBg,
                     thickBorder,
-                    pointer?.row === cellCoords.row
+                    pointer && pointer.row === cellCoords.row
                       ? "bg-purple/30 dark:bg-purple/30"
                       : "",
-                    pointer?.col === cellCoords.col
+                    pointer && pointer.col === cellCoords.col
                       ? "bg-purple/30 dark:bg-purple/30"
                       : "",
                     pointer?.index &&
