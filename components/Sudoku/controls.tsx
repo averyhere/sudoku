@@ -12,7 +12,6 @@ export const SudokuControls = () => {
     originalBoard,
     setBoard,
     pointer,
-    setPointer,
     clearPointer,
     isPaused,
     resume,
