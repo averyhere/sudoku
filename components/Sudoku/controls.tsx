@@ -78,11 +78,11 @@ export const SudokuControls = () => {
     if (key === "Delete" || key === "Backspace") {
       event.preventDefault(); // Prevent the default browser behavior for the key.
       handleSetValue("-");
-      setPointer(null);
+      clearPointer();
     } else if (key in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]) {
       event.preventDefault(); // Prevent the default browser behavior for the key.
       handleSetValue(key);
-      setPointer(null);
+      clearPointer();
     }
   }
 
