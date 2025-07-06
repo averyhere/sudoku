@@ -11,9 +11,12 @@ import {
 } from "@/components/ui/dialog";
 import { GameTimer } from "@/components/Sudoku/timer";
 import { SudokuControls } from "@/components/Sudoku/controls";
-import { DifficultySelector } from "./new-game-button";
+import { DifficultySelector, NewGameButton } from "./new-game-button";
+import { Skeleton } from "../ui/skeleton";
+import { useEffect, useState } from "react";
 
 export function SudokuBoard() {
+  const [showButton, setShowButton] = useState<boolean>(false);
   const {
     difficulty,
     board,
@@ -37,6 +40,14 @@ export function SudokuBoard() {
       ? "text-foreground focus:outline-green-700"
       : "text-red-600 focus:outline-red-600";
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowButton(true);
+    }, 1000);
+  }, []);
+
+  console.log("SudokuBoard", board, gameStatus);
 
   return (
     <>
@@ -120,9 +131,54 @@ export function SudokuBoard() {
         </div>
       )}
 
+      {!board && (
+        <div className="w-full mx-auto flex flex-col gap-2 items-center justify-center">
+          <div className="sudoku-header w-full flex items-end justify-between">
+            <div className="w-full flex flex-col gap-2">
+              <div className="w-full flex gap-2">
+                <Skeleton className="w-1/4 h-6" />
+                <Skeleton className="w-1/2 h-6" />
+              </div>
+              <div className="w-full flex gap-2">
+                <Skeleton className="w-1/2 h-6" />
+                <Skeleton className="w-1/4 h-6" />
+              </div>
+            </div>
+            <div>
+              <Skeleton className="w-16 h-8" />
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-1 grid-rows-1">
+            <Skeleton className="w-full h-full aspect-square col-start-1 row-start-1" />
+            <div className="col-start-1 row-start-1 z-10 flex items-center justify-center">
+              <NewGameButton
+                className={cn([
+                  "opacity-0 scale-0 transition-all duration-500",
+                  showButton && "opacity-100 scale-100",
+                ])}
+              >
+                Start Game
+              </NewGameButton>
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-10 gap-2">
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+            <Skeleton className="w-full h-16 md:h-9 aspect-square" />
+          </div>
+        </div>
+      )}
+
       <Dialog
-        defaultOpen={!!gameStatus}
-        open={!!gameStatus}
+        defaultOpen={gameStatus === "won" || gameStatus === "lost"}
+        open={gameStatus === "won" || gameStatus === "lost"}
         onOpenChange={() => {
           setGameStatus(null);
         }}
