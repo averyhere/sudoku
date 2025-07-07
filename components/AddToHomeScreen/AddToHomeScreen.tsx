@@ -122,7 +122,7 @@ export function AddToHomeScreen() {
   );
 
   if (
-    // displayPrompt === "desktop" ||
+    displayPrompt === "desktop" ||
     displayPrompt === "other" ||
     displayPrompt === ""
   ) {
