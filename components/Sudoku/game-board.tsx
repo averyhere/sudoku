@@ -24,13 +24,7 @@ export function SudokuBoard() {
   };
 
   return (
-    <div
-      className={cn([
-        "w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square",
-        "border border-purple border-l-1",
-        "",
-      ])}
-    >
+    <div className="sudoku-board w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square border border-purple border-l-1">
       {[...board.puzzle].map((value, index) => {
         const cellCoords = {
           row: Math.floor(index / 9),

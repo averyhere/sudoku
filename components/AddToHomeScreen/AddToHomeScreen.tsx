@@ -148,10 +148,7 @@ export function AddToHomeScreen() {
           onClick={() => handleOpenChange()}
           asChild
         >
-          <Button
-            variant="outline"
-            // className="p-0 inline-flex items-center justify-center gap-1"
-          >
+          <Button variant="outline">
             {isAndroid && <PiAndroidLogoDuotone className="size-4" />}
             {isIOS && <PiAppleLogoDuotone className="size-4" />}
             Add this App to your Home Screen
