@@ -6,12 +6,12 @@ import { AveryOndoLogo } from "@/components/logos";
 
 export function Footer() {
   return (
-    <footer className="w-full flex flex-col gap-1 items-center justify-center text-xs mt-6">
+    <footer className="w-full flex flex-col gap-1 items-center justify-center text-xs mt-1">
       <AddToHomeScreen />
       <Link
         href="https://averyondo.com"
         target="_blank"
-        className="w-full flex flex-col items-center justify-center"
+        className="w-full flex flex-col items-center justify-center mt-8"
       >
         <span>
           Created by <span className="sr-only">Avery Ondo</span>

@@ -149,8 +149,7 @@ export function AddToHomeScreen() {
           asChild
         >
           <Button
-            variant="ghost"
-            size="xs"
+            variant="outline"
             // className="p-0 inline-flex items-center justify-center gap-1"
           >
             {isAndroid && <PiAndroidLogoDuotone className="size-4" />}
