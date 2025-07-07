@@ -10,7 +10,7 @@ export function Header() {
       <div className="w-full mx-auto py-4 flex gap-2 p-2 justify-between items-center">
         <div className="flex gap-4 items-center">
           <div className="flex flex-col gap-2">
-            <h1 className="flex text-2xl md:text-4xl uppercase leading-none">
+            <h1 className="flex text-4xl md:text-4xl uppercase leading-none">
               <Link
                 href="/"
                 className="hover:underline transition-all text-foreground underline-offset-4 decoration-2 decoration-blue hover:text-pink"

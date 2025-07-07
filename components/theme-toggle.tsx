@@ -11,7 +11,49 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const handleUpdateMetaTag = () => {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    if (!document.querySelector('meta[name="theme-color"]')) {
+      const metaThemeTag = document.createElement("meta");
+      const metaThemeColor =
+        theme === "dark"
+          ? "#171717"
+          : theme === "light"
+            ? "#ffffff"
+            : prefersDark
+              ? "#171717"
+              : "#ffffff";
+      metaThemeTag.setAttribute("name", "theme-color");
+      metaThemeTag.setAttribute("content", metaThemeColor);
+      if (metaThemeColor) document.head.appendChild(metaThemeTag);
+    } else {
+      const metaThemeTag = document.querySelector(
+        'meta[name="theme-color"]',
+      ) as HTMLMetaElement;
+      const metaThemeColor =
+        theme === "dark" || prefersDark ? "#171717" : "#ffffff";
+      metaThemeTag.setAttribute("content", metaThemeColor);
+    }
+  };
+
+  React.useEffect(() => {
+    handleUpdateMetaTag();
+    // const metaThemeTag = document.createElement("meta");
+    // const metaThemeColor =
+    //   theme === "dark" ? "#171717" : theme === "light" ? "#ffffff" : "#66c7f1";
+    // metaThemeTag.setAttribute("name", "theme-color");
+    // metaThemeTag.setAttribute("content", "#ffffff");
+    // document.head.appendChild(metaThemeTag);
+
+    // // const metaThemeTag = document.querySelector('meta[name="theme-color"]');
+
+    // metaThemeTag.setAttribute("content", metaThemeColor);
+  }, [theme]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,13 +64,25 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme("light");
+          }}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme("dark");
+          }}
+        >
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => {
+            setTheme("system");
+          }}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>
