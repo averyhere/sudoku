@@ -80,14 +80,15 @@ export const useSudokuGameStore = create<SudokuGameState>()(
         });
       },
       reset: () => {
-        set((state) => ({
-          difficulty: state.difficulty,
-          board: state.originalBoard,
-          originalBoard: state.originalBoard,
+        set(() => ({
+          difficulty: undefined,
+          board: undefined,
+          originalBoard: undefined,
           timer: 0,
           isPaused: true,
           errorCount: 0,
           gameStatus: null,
+          pointer: undefined,
         }));
       },
       errorCount: 0,

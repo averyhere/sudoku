@@ -1,29 +1,14 @@
-// import Link from "next/link";
-// import { Button } from "@/components/ui/button";
-// import { PiGridFourDuotone } from "react-icons/pi";
-import { SudokuBoard } from "@/components/Sudoku";
+import { Sudoku } from "@/components/Sudoku";
 import { Main } from "@/components/main";
-// import { SudokuHeader } from "@/components/Sudoku";
+import { Header as PageHeader } from "@/components/header";
 
 export default function Home() {
   return (
-    <Main className="flex flex-col items-center justify-center gap-2 w-full h-full max-w-sm">
-      {/* <SudokuHeader /> */}
-      <SudokuBoard />
-    </Main>
+    <div className="w-full min-h-screen p-2 flex flex-col gap-4 items-center justify-start">
+      <PageHeader />
+      <Main className="w-full grow">
+        <Sudoku />
+      </Main>
+    </div>
   );
-
-  // return (
-  //   <main className="flex flex-col gap-2 w-full max-w-sm h-full items-center justify-center">
-  //     <h2 className="text-3xl font-bold">Available games:</h2>
-  //     <div className="flex flex-wrap w-full justify-center">
-  //       <Button className="flex flex-col gap-0 w-1/2 md:w-1/3" asChild>
-  //         <Link href="/sudoku">
-  //           <PiGridFourDuotone className="size-full" />
-  //           <span className="text-lg md:text-md font-bold">Sudoku</span>
-  //         </Link>
-  //       </Button>
-  //     </div>
-  //   </main>
-  // );
 }

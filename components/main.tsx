@@ -7,11 +7,7 @@ export function Main({
   ...props
 }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <main
-      id="main-content"
-      className={cn("flex flex-col flex-1", className)}
-      {...props}
-    >
+    <main id="main-content" className={cn(className)} {...props}>
       {children}
     </main>
   );

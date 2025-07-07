@@ -6,8 +6,8 @@ import { ScoreboardButton } from "@/components/Sudoku/scoreboard";
 
 export function Header() {
   return (
-    <header>
-      <div className="w-full mx-auto py-4 flex gap-2 justify-between items-center">
+    <header className="w-full">
+      <div className="w-full mx-auto py-4 flex gap-2 p-2 justify-between items-center">
         <div className="flex gap-4 items-center">
           <div className="flex flex-col gap-2">
             <h1 className="flex text-2xl md:text-4xl uppercase leading-none">
@@ -20,23 +20,23 @@ export function Header() {
             </h1>
           </div>
           <NewGameButton
-            variant="link"
-            size="xs"
-            className="!text-foreground hover:!text-pink decoration-2"
+            variant="default"
+            size="sm"
+            className="hidden md:inline-flex"
           >
             New Game
           </NewGameButton>
           <ScoreboardButton
-            variant="link"
-            size="xs"
-            className="!text-foreground hover:!text-pink decoration-2"
+            variant="default"
+            size="sm"
+            className="hidden md:inline-flex"
           >
             Scoreboard
           </ScoreboardButton>
         </div>
         <div className="flex gap-4 items-center">
           <Link
-            className="hidden md:inline hover:text-pink"
+            className="hover:text-pink"
             href="https://github.com/averyhere/sudoku"
             target="_blank"
           >
@@ -46,10 +46,14 @@ export function Header() {
           <ThemeToggle />
         </div>
       </div>
-      {/* <div className="w-full mb-4 flex gap-4 items-center justify-end">
-        <NewGameButton variant="default">New Game</NewGameButton>
-        <ScoreboardButton variant="default">Scoreboard</ScoreboardButton>
-      </div> */}
+      <div className="w-full mx-auto py-4 flex gap-2 pt-0 justify-between items-center md:hidden">
+        <NewGameButton variant="default" size="sm">
+          New Game
+        </NewGameButton>
+        <ScoreboardButton variant="default" size="sm">
+          Scoreboard
+        </ScoreboardButton>
+      </div>
     </header>
   );
 }

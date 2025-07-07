@@ -74,7 +74,7 @@ export function AddToHomeScreen() {
     const date = new Date();
     date.setFullYear(date.getFullYear() + 1);
     setCookie(COOKIE_NAME, "dontShow", { expires: date }); // Set cookie for a year
-    setDisplayPrompt("");
+    handleOpenChange();
   };
 
   useEffect(() => {
@@ -121,32 +121,37 @@ export function AddToHomeScreen() {
     </>
   );
 
-  if (displayPrompt === "desktop" || displayPrompt === "other") {
+  if (
+    // displayPrompt === "desktop" ||
+    displayPrompt === "other" ||
+    displayPrompt === ""
+  ) {
     return null;
   }
 
   const handleOpenChange = () => {
     const mainElement = document.getElementById("main-content") as HTMLElement;
     setIsOpen(!isOpen);
+    if (!isOpen) {
+      const date = new Date();
+      date.setDate(date.getDate() + 1);
+      setCookie(COOKIE_NAME, "dontShow", { expires: date }); // Set cookie for a year
+    }
     mainElement.focus();
   };
 
   return (
     <>
-      <Drawer
-        open={isOpen}
-        defaultOpen={isOpen}
-        onOpenChange={() => handleOpenChange()}
-      >
+      <Drawer defaultOpen={isOpen}>
         <DrawerTrigger
           className="cursor-pointer"
           onClick={() => handleOpenChange()}
           asChild
         >
           <Button
-            variant="link"
+            variant="ghost"
             size="xs"
-            className="p-0 inline-flex items-center justify-center gap-1"
+            // className="p-0 inline-flex items-center justify-center gap-1"
           >
             {isAndroid && <PiAndroidLogoDuotone className="size-4" />}
             {isIOS && <PiAppleLogoDuotone className="size-4" />}
@@ -157,11 +162,11 @@ export function AddToHomeScreen() {
           <DrawerHeader>
             <DrawerTitle className="relative flex flex-col items-center justify-center">
               <Badge>New!</Badge>
-              You can now play Sudoku offline!
+              Play offline!
             </DrawerTitle>
-            <DrawerDescription className="text-pretty">
+            <DrawerDescription className="text-balance px-4">
               For the best experience, and to play offline, we recommend adding
-              the Sudoku app to your home&nbsp;screen.
+              the Sudoku app to your home screen.
             </DrawerDescription>
           </DrawerHeader>
           <Prompt />

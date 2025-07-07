@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -48,13 +47,10 @@ export default function RootLayout({
       <body className={`${lexendDeca.variable} ${lexendDeca.className}`}>
         <SkipToMainContentLink />
         <Providers>
-          <div className="w-full min-h-dvh grid grid-rows-[max-content_1fr] px-3 md:px-4">
-            <Header />
-            <div className="flex items-center pb-8 md:items-start justify-center h-full">
-              {children}
-            </div>
-            <Footer />
+          <div className="w-full h-full flex items-center justify-center">
+            {children}
           </div>
+          <Footer />
           <Analytics />
         </Providers>
       </body>
