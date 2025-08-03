@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
-import { AveryOndoLogo } from "@/components/logos";
+import { AveryOndoLogo } from "@/components/temp/Logos";
 
 export function Footer() {
   return (
@@ -21,7 +21,7 @@ export function Footer() {
       <Button variant="link" size="xs" className="p-0" asChild>
         <Link
           className="inline-flex items-center justify-center gap-1"
-          href="https://github.com/averyhere/sudoku"
+          href="https://github.com/averyhere/sudoku.averyhere.com"
           target="_blank"
         >
           <Github className="size-4" />

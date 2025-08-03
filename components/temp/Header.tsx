@@ -1,5 +1,5 @@
 import { Github } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/temp/ThemeToggle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NewGameButton } from "@/components/Sudoku/new-game-button";
@@ -38,7 +38,7 @@ export function Header() {
         <div className="flex gap-4 items-center">
           <Link
             className="hover:text-pink"
-            href="https://github.com/averyhere/sudoku"
+            href="https://github.com/averyhere/sudoku.averyhere.com"
             target="_blank"
           >
             <Github className="size-6" />
