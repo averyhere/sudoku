@@ -24,7 +24,7 @@ export function SudokuBoard() {
   };
 
   return (
-    <div className="sudoku-board w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square border border-purple border-l-1">
+    <div className="sudoku-board w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square border border-blue/30 border-l-1">
       {[...board.puzzle].map((value, index) => {
         const cellCoords = {
           row: Math.floor(index / 9),
@@ -37,24 +37,16 @@ export function SudokuBoard() {
           cellCoords.row % 3 === 2 ? "border-b-1" : "border-b-[0.5px]",
         ].join(" ");
         const altBg = [
-          cellCoords.col < 3 && cellCoords.row < 3
-            ? "bg-blue/5 dark:bg-purple/10"
-            : "",
-          cellCoords.col > 5 && cellCoords.row < 3
-            ? "bg-blue/5 dark:bg-purple/10"
-            : "",
+          cellCoords.col < 3 && cellCoords.row < 3 ? "bg-purple/20" : "",
+          cellCoords.col > 5 && cellCoords.row < 3 ? "bg-purple/20" : "",
           cellCoords.col > 2 &&
           cellCoords.col < 6 &&
           cellCoords.row > 2 &&
           cellCoords.row < 6
-            ? "bg-blue/5 dark:bg-purple/10"
+            ? "bg-purple/20"
             : "",
-          cellCoords.col < 3 && cellCoords.row > 5
-            ? "bg-blue/5 dark:bg-purple/10"
-            : "",
-          cellCoords.col > 5 && cellCoords.row > 5
-            ? "bg-blue/5 dark:bg-purple/10"
-            : "",
+          cellCoords.col < 3 && cellCoords.row > 5 ? "bg-purple/20" : "",
+          cellCoords.col > 5 && cellCoords.row > 5 ? "bg-purple/20" : "",
         ];
 
         return (
@@ -63,22 +55,18 @@ export function SudokuBoard() {
             onClick={() => setPointer(index)}
             // disabled={[...originalBoard!.puzzle][index] !== "-"}
             className={cn([
-              "sudoku-cell",
-              "flex items-center justify-center text-2xl border-purple hover:bg-[var(--blue)]/30",
+              "sudoku-cell cursor-pointer",
+              "flex items-center justify-center text-2xl font-light border-blue/30 hover:bg-blue/30",
               altBg,
               thickBorder,
-              pointer && pointer.row === cellCoords.row
-                ? "bg-purple/30 dark:bg-purple/30"
-                : "",
-              pointer && pointer.col === cellCoords.col
-                ? "bg-purple/30 dark:bg-purple/30"
-                : "",
+              pointer && pointer.row === cellCoords.row ? "bg-pink/15" : "",
+              pointer && pointer.col === cellCoords.col ? "bg-pink/15" : "",
               pointer?.index !== undefined &&
               value === board.puzzle[pointer.index] &&
               value !== "-"
-                ? "bg-pink/10 dark:bg-pink/20"
+                ? "bg-blue/15"
                 : "",
-              pointer?.index === index ? "bg-pink/40 border-2 border-pink" : "",
+              pointer?.index === index ? "bg-blue/40" : "",
               getCellTextColor(index),
             ])}
           >
