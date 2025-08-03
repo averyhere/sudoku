@@ -1,8 +1,8 @@
 "use client";
 
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
-import { Main } from "@/components/main";
-import { Header as PageHeader } from "@/components/header";
+import { Main } from "@/components/Main";
+import { Header as PageHeader } from "@/components/Header";
 import { DataTable } from "@/components/Sudoku/scoreboard/table";
 import { columns } from "@/components/Sudoku/scoreboard/columns";
 import { Button } from "@/components/ui/button";

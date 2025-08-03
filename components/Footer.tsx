@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { AddToHomeScreen } from "@/components/AddToHomeScreen";
-import { AveryOndoLogo } from "@/components/temp/Logos";
+import { AveryOndoLogo } from "@/components/Logos";
 
 export function Footer() {
   return (

@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
-import { Footer } from "@/components/temp/Footer";
+import { Footer } from "@/components/Footer";
 import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { SkipToMainContentLink } from "@/components/temp/Main";
+import { SkipToMainContentLink } from "@/components/Main";
 import "./globals.css";
 
 const lexendDeca = Lexend_Deca({

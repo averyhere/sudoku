@@ -1,5 +1,5 @@
 import { Github } from "lucide-react";
-import { ThemeToggle } from "@/components/temp/ThemeToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NewGameButton } from "@/components/Sudoku/new-game-button";

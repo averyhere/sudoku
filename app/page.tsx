@@ -1,6 +1,6 @@
 import { Sudoku } from "@/components/Sudoku";
-import { Main } from "@/components/temp/Main";
-import { Header as PageHeader } from "@/components/temp/Header";
+import { Main } from "@/components/Main";
+import { Header as PageHeader } from "@/components/Header";
 
 export default function Home() {
   return (
