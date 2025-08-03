@@ -40,9 +40,24 @@ export default function RootLayout({
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/favicons/apple-touch-icon.png"
+          href="/icons/ios-light.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/icons/ios-dark.png"
+          media="(prefers-color-scheme: dark)"
         />
         <meta name="apple-mobile-web-app-title" content="Sudoku" />
+        <link
+          rel="apple-touch-startup-image"
+          href="/icons/splash-icon-light.png"
+        />
+        <link
+          rel="apple-touch-startup-image"
+          href="/icons/splash-icon-dark.png"
+          media="(prefers-color-scheme: dark)"
+        />
       </head>
       <body className={`${lexendDeca.variable} ${lexendDeca.className}`}>
         <SkipToMainContentLink />
