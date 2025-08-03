@@ -4,6 +4,7 @@ import { getSudoku } from "sudoku-gen";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { Sudoku } from "sudoku-gen/dist/types/sudoku.type";
 import type { ScoreType } from "@/components/Sudoku/scoreboard";
+import { track } from "@vercel/analytics";
 
 export type SudokuGameState = {
   difficulty: Difficulty | undefined;
@@ -78,6 +79,7 @@ export const useSudokuGameStore = create<SudokuGameState>()(
           errorCount: 0,
           gameStatus: null,
         });
+        track("new_game", { difficulty: d });
       },
       reset: () => {
         set(() => ({
@@ -90,6 +92,7 @@ export const useSudokuGameStore = create<SudokuGameState>()(
           gameStatus: null,
           pointer: undefined,
         }));
+        track("reset_game");
       },
       errorCount: 0,
       incrementErrorCount: () =>
@@ -107,14 +110,24 @@ export const useSudokuGameStore = create<SudokuGameState>()(
         errorCount: number;
         difficulty: Difficulty;
         result: "won" | "lost";
-      }) =>
+      }) => {
         set((state) => ({
           scoreboard: [
             ...state.scoreboard,
             { date, time, errorCount, difficulty, result },
           ],
-        })),
-      clearScores: () => set({ scoreboard: [] }),
+        }));
+        track("save_score", {
+          elapsedTime: time,
+          errorCount: errorCount,
+          difficulty: difficulty,
+          result: result,
+        });
+      },
+      clearScores: () => {
+        set({ scoreboard: [] });
+        track("cleard_scores");
+      },
       gameStatus: null,
       setGameStatus: (status: null | "won" | "lost") =>
         set({ gameStatus: status }),
