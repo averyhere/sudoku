@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
 import { Difficulty } from "sudoku-gen/dist/types/difficulty.type";
 import { ButtonProps } from "../ui/button";
@@ -53,10 +54,15 @@ export function DifficultySelector({
   onSelect?: (value: Difficulty) => void;
 }) {
   const { newGame } = useSudokuGameStore();
+  const pathname = usePathname();
+  const router = useRouter();
 
   function handleSelection(value: Difficulty) {
     if (onSelect) onSelect(value);
     newGame(value);
+    if (pathname !== "/") {
+      router.push("/");
+    }
   }
 
   return (

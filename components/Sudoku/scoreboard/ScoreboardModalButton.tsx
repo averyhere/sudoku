@@ -14,8 +14,9 @@ import {
 } from "@/components/ui/dialog";
 import { columns } from "./columns";
 import { DataTable } from "./table";
+import Link from "next/link";
 
-export function ScoreboardButton({ children, ...props }: ButtonProps) {
+export function ScoreboardModalButton({ children, ...props }: ButtonProps) {
   const scoreboard = useSudokuGameStore((s) => s.scoreboard);
   const clearScores = useSudokuGameStore((s) => s.clearScores);
 
@@ -35,6 +36,9 @@ export function ScoreboardButton({ children, ...props }: ButtonProps) {
           <DataTable columns={columns} data={scoreboard} />
         </div>
         <DialogFooter>
+          <Button variant="ghost" size="sm" onClick={clearScores} asChild>
+            <Link href="/scoreboard">View All</Link>
+          </Button>
           <Button variant="ghost" size="sm" onClick={clearScores}>
             Clear Scores
           </Button>

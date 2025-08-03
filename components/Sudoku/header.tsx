@@ -10,11 +10,11 @@ export function SudokuHeader() {
   if (!difficulty) return <SudokuHeaderSkeleton />;
 
   return (
-    <div className="sudoku-header w-full flex items-end justify-between">
-      <div>
-        <p className="capitalize">Difficulty: {difficulty}</p>
-        {difficulty !== "easy" && <p>Mistakes: {errorCount}/5</p>}
-      </div>
+    <div className="sudoku-header w-full flex items-end justify-between font-light">
+      <p className="capitalize" title="Difficulty">
+        {difficulty}
+      </p>
+      {difficulty !== "easy" && <p>Mistakes: {errorCount}/5</p>}
       <GameTimer />
     </div>
   );

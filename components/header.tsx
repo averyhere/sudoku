@@ -1,13 +1,13 @@
 import { Github } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { NewGameButton } from "@/components/Sudoku/new-game-button";
-import { ScoreboardButton } from "@/components/Sudoku/scoreboard";
 
 export function Header() {
   return (
-    <header className="w-full">
-      <div className="w-full mx-auto py-4 flex gap-2 p-2 justify-between items-center">
+    <header className="w-full p-2">
+      <div className="w-full max-w-4xl mx-auto py-4 flex gap-2 justify-between items-center">
         <div className="flex gap-4 items-center">
           <div className="flex flex-col gap-2">
             <h1 className="flex text-4xl md:text-4xl uppercase leading-none">
@@ -26,13 +26,14 @@ export function Header() {
           >
             New Game
           </NewGameButton>
-          <ScoreboardButton
+          <Button
             variant="default"
             size="sm"
             className="hidden md:inline-flex"
+            asChild
           >
-            Scoreboard
-          </ScoreboardButton>
+            <Link href="/scoreboard">Scoreboard</Link>
+          </Button>
         </div>
         <div className="flex gap-4 items-center">
           <Link
@@ -50,9 +51,14 @@ export function Header() {
         <NewGameButton variant="default" size="sm">
           New Game
         </NewGameButton>
-        <ScoreboardButton variant="default" size="sm">
-          Scoreboard
-        </ScoreboardButton>
+        <Button
+          variant="default"
+          size="sm"
+          className="hidden md:inline-flex"
+          asChild
+        >
+          <Link href="/scoreboard">Scoreboard</Link>
+        </Button>
       </div>
     </header>
   );
