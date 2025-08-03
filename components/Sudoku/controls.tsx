@@ -53,7 +53,7 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
     const newPuzzle = [...board!.puzzle];
     newPuzzle[pointer.index] = value;
     const correctValue = [...board!.solution][pointer.index];
-    console.log("setting value", value);
+
     if (
       difficulty !== "easy" &&
       value !== correctValue &&
@@ -92,7 +92,7 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
 
   function handleKeyPress(event: KeyboardEvent) {
     const key = event.key;
-    console.log("keybord click", key, key === "Backspace");
+
     if (key === "Delete" || key === "Backspace") {
       event.preventDefault(); // Prevent the default browser behavior for the key.
       handleSetValue("-");

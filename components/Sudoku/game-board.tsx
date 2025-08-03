@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export function SudokuBoard() {
   const { board, originalBoard, pointer, setPointer } = useSudokuGameStore();
-
   if (!board || !originalBoard) return <SudokuBoardSkeleton />;
 
   const getCellTextColor = (index: number): string => {
@@ -20,7 +19,8 @@ export function SudokuBoard() {
     }
 
     const correctValue = [...board!.solution][index];
-    if (value === correctValue) {
+
+    if (value !== correctValue) {
       return "text-red-600 focus:outline-2 focus:outline-red-600";
     }
 
