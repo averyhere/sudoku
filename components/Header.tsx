@@ -51,12 +51,7 @@ export function Header() {
         <NewGameButton variant="default" size="sm">
           New Game
         </NewGameButton>
-        <Button
-          variant="default"
-          size="sm"
-          className="hidden md:inline-flex"
-          asChild
-        >
+        <Button variant="default" size="sm" asChild>
           <Link href="/scoreboard">Scoreboard</Link>
         </Button>
       </div>
