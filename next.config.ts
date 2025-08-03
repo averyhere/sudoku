@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 import withPWA from "next-pwa";
 
-// const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === "development";
 
 const nextConfig: NextConfig = {
   async headers() {
@@ -56,5 +56,5 @@ const nextConfig: NextConfig = {
 
 export default withPWA({
   dest: "public",
-  disable: false,
+  disable: isDev,
 })(nextConfig);
