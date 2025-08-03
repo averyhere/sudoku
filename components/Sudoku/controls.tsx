@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { useSudokuGameStore } from "@/hooks/useSudokuGameStore";
-import { PiBackspaceDuotone } from "react-icons/pi";
+import { PiXThin } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -143,41 +143,56 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
   };
 
   return (
-    <div className="sudoku-controls flex flex-col gap-8">
+    <div className="sudoku-controls w-full flex flex-col gap-2">
       <div
         className={cn([
-          "w-full grid gap-2",
+          "w-full grid gap-1",
           !layout || layout === "default"
-            ? "grid-cols-10"
+            ? "grid-cols-9"
             : "grid-cols-3 grid-rows-4",
         ])}
       >
-        <Button
-          variant="secondary"
-          onClick={() => handleSetValue("-")}
-          size="icon"
-          className="w-full h-16 md:h-9 text-3xl md:text-lg"
-          disabled={
-            !board!.puzzle.includes("-") ||
-            !!(pointer && originalBoard!.puzzle[pointer.index] !== "-")
-          }
-        >
-          <PiBackspaceDuotone className="size-6 md:size-6" />
-          <span className="sr-only">Clear value</span>
-        </Button>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-          <Button
-            variant="secondary"
+          <button
             key={num}
             onClick={() => handleSetValue(num.toString())}
-            className="w-full h-16 md:h-9 font-bold text-2xl md:text-lg"
+            className={cn([
+              "w-full h-16 md:h-9 cursor-pointer transition-all bg-purple/10",
+              "font-thin text-4xl md:text-lg decoration-blue underline-offset-4",
+              "hover:pb-3 hover:text-bright-purple hover:bg-bright-purple/10",
+              "active:pt-3 active:text-bright-purple active:bg-bright-purple/10",
+              "md:active:pb-3",
+              "disabled:opacity-30 disabled:cursor-default disabled:pointer-events-none select-none",
+            ])}
             disabled={
               board!.puzzle.match(new RegExp(`${num}`, "g"))?.length === 9
             }
           >
             {num}
-          </Button>
+          </button>
         ))}
+      </div>
+
+      <div className="flex items-center justify-center">
+        <button
+          onClick={() => handleSetValue("-")}
+          className={cn([
+            "flex flex-row align-center justify-center gap-1 p-2 md:h-9 cursor-pointer transition-all bg-purple/10",
+            "font-thin text-4xl md:text-lg decoration-blue underline-offset-4",
+            "hover:text-bright-purple hover:bg-bright-purple/10",
+            "active:mt-1 active:text-bright-purple active:bg-bright-purple/10",
+            "md:active:pb-3",
+            "disabled:opacity-30 disabled:cursor-default disabled:pointer-events-none select-none",
+          ])}
+          disabled={
+            !board!.puzzle.includes("-") ||
+            !!(pointer && originalBoard!.puzzle[pointer.index] !== "-")
+          }
+        >
+          {/* <span className="text-4xl md:text-lg">&times;</span> */}
+          <PiXThin className="size-7" />
+          <span className="text-lg md:text-xs uppercase">Clear value</span>
+        </button>
       </div>
 
       {process.env.NEXT_PUBLIC_GAME_DEBUG && (
