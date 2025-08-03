@@ -14,17 +14,21 @@ export function SudokuBoard() {
   const getCellTextColor = (index: number): string => {
     const value = [...board!.puzzle][index];
     const ogValue = [...originalBoard!.puzzle][index];
-    if (value === "" || ogValue !== "-")
-      return "text-foreground/80 focus:outline-bright-purple";
+
+    if (value === "" || value === "-" || ogValue !== "-") {
+      return "text-foreground/80 focus:outline-2 focus:outline-blue";
+    }
 
     const correctValue = [...board!.solution][index];
-    return value === correctValue
-      ? "text-foreground focus:outline-green-700"
-      : "text-red-600 focus:outline-red-600";
+    if (value === correctValue) {
+      return "text-red-600 focus:outline-2 focus:outline-red-600";
+    }
+
+    return "";
   };
 
   return (
-    <div className="sudoku-board w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square border border-blue/30 border-l-1">
+    <div className="sudoku-board w-full h-full relative grid grid-cols-9 grid-rows-9 gap-0 aspect-square border border-purple/30 dark:border-blue/30 border-l-1">
       {[...board.puzzle].map((value, index) => {
         const cellCoords = {
           row: Math.floor(index / 9),
@@ -37,26 +41,28 @@ export function SudokuBoard() {
           cellCoords.row % 3 === 2 ? "border-b-1" : "border-b-[0.5px]",
         ].join(" ");
         const altBg = [
-          cellCoords.col < 3 && cellCoords.row < 3 ? "bg-purple/20" : "",
-          cellCoords.col > 5 && cellCoords.row < 3 ? "bg-purple/20" : "",
+          cellCoords.col < 3 && cellCoords.row < 3 ? "bg-purple/10" : "",
+          cellCoords.col > 5 && cellCoords.row < 3 ? "bg-purple/10" : "",
           cellCoords.col > 2 &&
           cellCoords.col < 6 &&
           cellCoords.row > 2 &&
           cellCoords.row < 6
-            ? "bg-purple/20"
+            ? "bg-purple/10"
             : "",
-          cellCoords.col < 3 && cellCoords.row > 5 ? "bg-purple/20" : "",
-          cellCoords.col > 5 && cellCoords.row > 5 ? "bg-purple/20" : "",
+          cellCoords.col < 3 && cellCoords.row > 5 ? "bg-purple/10" : "",
+          cellCoords.col > 5 && cellCoords.row > 5 ? "bg-purple/10" : "",
         ];
 
         return (
           <button
             key={`${index}`}
             onClick={() => setPointer(index)}
+            aria-label={`Select cell number ${index + 1}`}
+            type="button"
             // disabled={[...originalBoard!.puzzle][index] !== "-"}
             className={cn([
               "sudoku-cell cursor-pointer",
-              "flex items-center justify-center text-2xl font-light border-blue/30 hover:bg-blue/30",
+              "flex items-center justify-center text-2xl font-light border-purple/30 dark:border-blue/30 hover:bg-blue/30",
               altBg,
               thickBorder,
               pointer && pointer.row === cellCoords.row ? "bg-pink/15" : "",

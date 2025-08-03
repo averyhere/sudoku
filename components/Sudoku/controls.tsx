@@ -157,9 +157,10 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
             key={num}
             onClick={() => handleSetValue(num.toString())}
             className={cn([
-              "w-full h-16 md:h-9 cursor-pointer transition-all bg-purple/10",
-              "font-thin text-4xl md:text-lg decoration-blue underline-offset-4",
+              "w-full h-16 cursor-pointer transition-all bg-purple/10",
+              "font-thin text-4xl decoration-blue underline-offset-4",
               "hover:pb-3 hover:text-bright-purple hover:bg-bright-purple/10",
+              "dark:hover:text-blue dark:hover:bg-blue/10",
               "active:pt-3 active:text-bright-purple active:bg-bright-purple/10",
               "md:active:pb-3",
               "disabled:opacity-30 disabled:cursor-default disabled:pointer-events-none select-none",
@@ -177,8 +178,8 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
         <button
           onClick={() => handleSetValue("-")}
           className={cn([
-            "flex flex-row align-center justify-center gap-1 p-2 md:h-9 cursor-pointer transition-all bg-purple/10",
-            "font-thin text-4xl md:text-lg decoration-blue underline-offset-4",
+            "flex flex-row align-center justify-center gap-1 p-2 cursor-pointer transition-all bg-purple/10",
+            "font-extralight text-4xl decoration-blue underline-offset-4",
             "hover:text-bright-purple hover:bg-bright-purple/10",
             "active:mt-1 active:text-bright-purple active:bg-bright-purple/10",
             "md:active:pb-3",
@@ -190,8 +191,8 @@ export const SudokuControls = ({ layout }: { layout?: string }) => {
           }
         >
           {/* <span className="text-4xl md:text-lg">&times;</span> */}
-          <PiXThin className="size-7" />
-          <span className="text-lg md:text-xs uppercase">Clear value</span>
+          <PiXThin className="size-5" />
+          <span className="text-sm uppercase">Clear value</span>
         </button>
       </div>
 
