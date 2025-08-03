@@ -13,7 +13,7 @@ import {
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const handleUpdateMetaTag = () => {
+  React.useEffect(() => {
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
@@ -35,23 +35,9 @@ export function ThemeToggle() {
         'meta[name="theme-color"]',
       ) as HTMLMetaElement;
       const metaThemeColor =
-        theme === "dark" || prefersDark ? "#171717" : "#ffffff";
+        theme === "light" || !prefersDark ? "#ffffff" : "#171717";
       metaThemeTag.setAttribute("content", metaThemeColor);
     }
-  };
-
-  React.useEffect(() => {
-    handleUpdateMetaTag();
-    // const metaThemeTag = document.createElement("meta");
-    // const metaThemeColor =
-    //   theme === "dark" ? "#171717" : theme === "light" ? "#ffffff" : "#66c7f1";
-    // metaThemeTag.setAttribute("name", "theme-color");
-    // metaThemeTag.setAttribute("content", "#ffffff");
-    // document.head.appendChild(metaThemeTag);
-
-    // // const metaThemeTag = document.querySelector('meta[name="theme-color"]');
-
-    // metaThemeTag.setAttribute("content", metaThemeColor);
   }, [theme]);
 
   return (
