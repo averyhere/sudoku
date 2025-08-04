@@ -21,7 +21,7 @@ export function Footer() {
       <Button variant="link" size="xs" className="p-0" asChild>
         <Link
           className="inline-flex items-center justify-center gap-1"
-          href="https://github.com/averyhere/sudoku.averyhere.com"
+          href="https://github.com/averyhere/sudoku"
           target="_blank"
         >
           <Github className="size-4" />

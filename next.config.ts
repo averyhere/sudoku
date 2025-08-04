@@ -55,4 +55,5 @@ const nextConfig: NextConfig = {
 export default withPWA({
   dest: "public",
   disable: false,
+  register: true,
 })(nextConfig);

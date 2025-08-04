@@ -38,7 +38,7 @@ export function Header() {
         <div className="flex gap-4 items-center">
           <Link
             className="hover:text-pink"
-            href="https://github.com/averyhere/sudoku.averyhere.com"
+            href="https://github.com/averyhere/sudoku"
             target="_blank"
           >
             <Github className="size-6" />
