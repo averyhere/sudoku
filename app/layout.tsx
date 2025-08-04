@@ -3,6 +3,7 @@ import { Providers } from "./providers";
 import { Footer } from "@/components/Footer";
 import { Lexend_Deca } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SkipToMainContentLink } from "@/components/Main";
 import "./globals.css";
 
@@ -67,6 +68,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <Analytics />
+          <SpeedInsights />
         </Providers>
       </body>
     </html>
